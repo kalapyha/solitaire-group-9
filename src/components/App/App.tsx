@@ -42,6 +42,19 @@ import HeartsAce from '../../assets/hearts/HeartsAce';
 import HeartsJack from '../../assets/hearts/HeartsJack';
 import HeartsKing from '../../assets/hearts/HeartsKing';
 import HeartsQueen from '../../assets/hearts/HeartsQueen';
+import Spades10 from '../../assets/spades/Spades10';
+import Spades2 from '../../assets/spades/Spades2';
+import Spades3 from '../../assets/spades/Spades3';
+import Spades4 from '../../assets/spades/Spades4';
+import Spades5 from '../../assets/spades/Spades5';
+import Spades6 from '../../assets/spades/Spades6';
+import Spades7 from '../../assets/spades/Spades7';
+import Spades8 from '../../assets/spades/Spades8';
+import Spades9 from '../../assets/spades/Spades9';
+import SpadesAce from '../../assets/spades/SpadesAce';
+import SpadesJack from '../../assets/spades/SpadesJack';
+import SpadesKing from '../../assets/spades/SpadesKing';
+import SpadesQueen from '../../assets/spades/SpadesQueen';
 
 function App() {
     return (
@@ -120,6 +133,26 @@ function App() {
                 <HeartsQueen />
                 <HeartsKing />
                 <HeartsAce />
+            </div>
+            <div>
+                <br />
+                <br />
+                Set for Spades:
+                <br />
+                <br />
+                <Spades2 />
+                <Spades3 />
+                <Spades4 />
+                <Spades5 />
+                <Spades6 />
+                <Spades7 />
+                <Spades8 />
+                <Spades9 />
+                <Spades10 />
+                <SpadesJack />
+                <SpadesQueen />
+                <SpadesKing />
+                <SpadesAce />
             </div>
         </div>
     );
