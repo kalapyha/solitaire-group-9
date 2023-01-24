@@ -3,6 +3,8 @@ import Blue from '../../assets/backs/Blue';
 import Red from '../../assets/backs/Red';
 import Astronaut from '../../assets/backs/Astronaut';
 import Clubs2 from '../../assets/clubs/Clubs2';
+import Clubs3 from '../../assets/clubs/Clubs3';
+import Clubs4 from '../../assets/clubs/Clubs4';
 
 function App() {
     return (
@@ -27,7 +29,10 @@ function App() {
                 Some cards:
                 <br />
                 <br />
+                {/* TODO we can use .svg or we can convert them to jsx component, looks jsx works better... */}
                 <Clubs2 />
+                <Clubs3 />
+                <Clubs4 />
             </div>
         </div>
     );
