@@ -1,5 +1,7 @@
 # Getting Started
 
+Check this link to see build version https://classy-pony-87ed97.netlify.app/
+
 ### `npm start`
 
 Runs the app in the development mode.\
