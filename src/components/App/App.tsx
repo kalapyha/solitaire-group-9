@@ -55,6 +55,7 @@ import SpadesAce from '../../assets/spades/SpadesAce';
 import SpadesJack from '../../assets/spades/SpadesJack';
 import SpadesKing from '../../assets/spades/SpadesKing';
 import SpadesQueen from '../../assets/spades/SpadesQueen';
+import Deck from '../Deck/Deck';
 
 function App() {
     return (
@@ -153,6 +154,14 @@ function App() {
                 <SpadesQueen />
                 <SpadesKing />
                 <SpadesAce />
+            </div>
+            <div>
+                <br />
+                <br />
+                DECK:
+                <br />
+                <br />
+                <Deck />
             </div>
         </div>
     );
