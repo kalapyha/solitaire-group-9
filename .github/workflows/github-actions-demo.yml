@@ -1,5 +1,5 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: GitHub Actions Main
+run-name: ${{ github.actor }} is running out GitHub Actions 🚀
 on:
     push:
         branches: [main]
@@ -13,13 +13,13 @@ jobs:
                 node-varsion: [17.x]
         steps:
             - uses: actions/checkout@v3
-            - name: Staring Node.js ${{ matrix.node-version }}
+            - name: Staring Node.js ${{ matrix.node-version }} 🖥️
               uses: actions/setup-node@v3
               with:
                   node-version: ${{ matrix.node-version }}
-            - name: install modules
+            - name: install modules 🛠️
               run: npm install
-            - name: build project
+            - name: build project 🏗️
               run: npm run build
             - name: unit tests
-              run: npm run test
+              run: npm run test 🔬
