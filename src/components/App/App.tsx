@@ -29,6 +29,19 @@ import DiamondsAce from '../../assets/diamonds/DiamondsAce';
 import DiamondsJack from '../../assets/diamonds/DiamondsJack';
 import DiamondsKing from '../../assets/diamonds/DiamondsKing';
 import DiamondsQueen from '../../assets/diamonds/DiamondsQueen';
+import Hearts10 from '../../assets/hearts/Hearts10';
+import Hearts2 from '../../assets/hearts/Hearts2';
+import Hearts3 from '../../assets/hearts/Hearts3';
+import Hearts4 from '../../assets/hearts/Hearts4';
+import Hearts5 from '../../assets/hearts/Hearts5';
+import Hearts6 from '../../assets/hearts/Hearts6';
+import Hearts7 from '../../assets/hearts/Hearts7';
+import Hearts8 from '../../assets/hearts/Hearts8';
+import Hearts9 from '../../assets/hearts/Hearts9';
+import HeartsAce from '../../assets/hearts/HeartsAce';
+import HeartsJack from '../../assets/hearts/HeartsJack';
+import HeartsKing from '../../assets/hearts/HeartsKing';
+import HeartsQueen from '../../assets/hearts/HeartsQueen';
 
 function App() {
     return (
@@ -87,6 +100,26 @@ function App() {
                 <DiamondsQueen />
                 <DiamondsKing />
                 <DiamondsAce />
+            </div>
+            <div>
+                <br />
+                <br />
+                Set for Hearts:
+                <br />
+                <br />
+                <Hearts2 />
+                <Hearts3 />
+                <Hearts4 />
+                <Hearts5 />
+                <Hearts6 />
+                <Hearts7 />
+                <Hearts8 />
+                <Hearts9 />
+                <Hearts10 />
+                <HeartsJack />
+                <HeartsQueen />
+                <HeartsKing />
+                <HeartsAce />
             </div>
         </div>
     );
