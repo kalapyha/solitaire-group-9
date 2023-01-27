@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { deckArray } from '../utils/cards';
 import { shuffleArray } from '../utils/helpers';
 import { CardType } from '../types';
 
