@@ -25,7 +25,7 @@ const Board = () => {
                     display="flex"
                     flexDirection="row"
                     alignItems="center"
-                    justifyContent="center"
+                    justifyContent="flex-start"
                     alignContent="center"
                 >
                     <Deck cardsArray={shuffledArray.slice(0, 24)} autoReveal={false} />
