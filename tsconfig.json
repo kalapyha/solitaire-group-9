@@ -12,7 +12,7 @@
         "sourceMap": true,
         "strict": true,
         "resolveJsonModule": true,
-        "noUnusedLocals": true,
+        "noUnusedLocals": false,
         "noImplicitAny": true,
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
