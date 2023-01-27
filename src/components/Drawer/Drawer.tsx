@@ -21,6 +21,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import Chip from '@mui/material/Chip';
+import SwitchDayNight from './components/SwitchDayNight';
 
 const drawerWidth = 240;
 
@@ -111,33 +112,36 @@ export default function MiniDrawer({ children }: MiniDrawerProps) {
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar position="fixed" open={open} color="default">
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        sx={{
-                            marginRight: 5,
-                            ...(open && { display: 'none' }),
-                        }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
+                <Toolbar style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+                    <Box display="flex" alignItems="center">
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            sx={{
+                                marginRight: 5,
+                                ...(open && { display: 'none' }),
+                            }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
 
-                    <Typography variant="body1" noWrap component="div" mr={2}>
-                        Solitaire Game by group #9
-                    </Typography>
-                    <Divider
-                        orientation="vertical"
-                        style={{
-                            backgroundColor: 'rgba(0, 0, 0, 0.12)',
-                            height: '30px',
-                            width: '1px',
-                            marginRight: '16px',
-                        }}
-                    />
-                    <Chip label="Score: 0" variant="outlined" />
+                        <Typography variant="body1" noWrap component="div" mr={2}>
+                            Solitaire Game by group #9
+                        </Typography>
+                        <Divider
+                            orientation="vertical"
+                            style={{
+                                backgroundColor: 'rgba(0, 0, 0, 0.12)',
+                                height: '30px',
+                                width: '1px',
+                                marginRight: '16px',
+                            }}
+                        />
+                        <Chip label="Score: 0" variant="outlined" />
+                    </Box>
+                    <SwitchDayNight />
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
