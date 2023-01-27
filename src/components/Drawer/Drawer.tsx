@@ -20,6 +20,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import Chip from '@mui/material/Chip';
 import SwitchDayNight from './components/SwitchDayNight';
 
@@ -141,7 +142,22 @@ export default function MiniDrawer({ children }: MiniDrawerProps) {
                         />
                         <Chip label="Score: 0" variant="outlined" />
                     </Box>
-                    <SwitchDayNight />
+                    <Box display="flex" alignItems="center">
+                        <IconButton aria-label="Reset" color="primary">
+                            <RestartAltIcon />
+                        </IconButton>
+                        <Divider
+                            orientation="vertical"
+                            style={{
+                                backgroundColor: 'rgba(0, 0, 0, 0.12)',
+                                height: '30px',
+                                width: '1px',
+                                marginRight: '16px',
+                                marginLeft: '16px',
+                            }}
+                        />
+                        <SwitchDayNight />
+                    </Box>
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>

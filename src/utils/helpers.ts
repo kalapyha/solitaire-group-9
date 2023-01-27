@@ -1,4 +1,6 @@
-const shuffleArray = (array: any[]) => {
+import { CardType } from '~/types';
+
+const shuffleArray = (array: CardType[]) => {
     const arrayToShuffle = [...array];
 
     if (arrayToShuffle.length === 1 || !arrayToShuffle.length) return arrayToShuffle;

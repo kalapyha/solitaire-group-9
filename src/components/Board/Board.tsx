@@ -1,13 +1,13 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-// import Paper from '@mui/material/Paper';
-// import { styled } from '@mui/material';
-// import SpadesAce from '../../assets/spades/SpadesAce';
-// import SpadesJack from '../../assets/spades/SpadesJack';
-// import SpadesKing from '../../assets/spades/SpadesKing';
-// import SpadesQueen from '../../assets/spades/SpadesQueen';
 import HomeCard from './components/HomeCard';
 import { Box } from '@mui/system';
+import Deck from '../Deck/Deck';
+import { deckArray } from '../../utils/cards';
+import { shuffleArray } from '../../utils/helpers';
+
+// TODO this shouldn't be here, better lvl up? I created a hook, can use it later
+const shuffledArray = shuffleArray(deckArray);
 
 const Board = () => {
     return (
@@ -24,26 +24,26 @@ const Board = () => {
                     xs={4}
                     display="flex"
                     flexDirection="row"
-                    alignItems="flex-start"
+                    alignItems="center"
                     justifyContent="center"
                     alignContent="center"
                 >
-                    <HomeCard />
+                    <Deck cardsArray={shuffledArray.slice(0, 24)} autoReveal={false} />
                 </Grid>
                 <Grid
                     item
                     xs={8}
                     display="flex"
                     flexDirection="row"
-                    alignItems="flex-start"
+                    alignItems="center"
                     justifyContent="flex-end"
                     alignContent="center"
                     gap={3}
                 >
-                    <HomeCard showHomeBorder />
-                    <HomeCard showHomeBorder />
-                    <HomeCard showHomeBorder />
-                    <HomeCard showHomeBorder />
+                    <HomeCard showHomeBorder suitImage="♥" />
+                    <HomeCard showHomeBorder suitImage="♣" />
+                    <HomeCard showHomeBorder suitImage="♦" />
+                    <HomeCard showHomeBorder suitImage="♠" />
                 </Grid>
                 <Grid
                     item
@@ -55,13 +55,13 @@ const Board = () => {
                     alignContent="center"
                     gap={4.5}
                 >
-                    <HomeCard />
-                    <HomeCard />
-                    <HomeCard />
-                    <HomeCard />
-                    <HomeCard />
-                    <HomeCard />
-                    <HomeCard />
+                    <Deck cardsArray={shuffledArray.slice(24, 25)} />
+                    <Deck cardsArray={shuffledArray.slice(25, 27)} />
+                    <Deck cardsArray={shuffledArray.slice(27, 30)} />
+                    <Deck cardsArray={shuffledArray.slice(30, 34)} />
+                    <Deck cardsArray={shuffledArray.slice(34, 39)} />
+                    <Deck cardsArray={shuffledArray.slice(39, 45)} />
+                    <Deck cardsArray={shuffledArray.slice(45, 52)} />
                 </Grid>
             </Grid>
         </Box>
