@@ -20,9 +20,9 @@ import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import Chip from '@mui/material/Chip';
 import SwitchDayNight from './components/SwitchDayNight';
+import Reset from './components/Reset';
+import Score from './components/Score';
 
 const drawerWidth = 240;
 
@@ -124,12 +124,10 @@ export default function MiniDrawer({ children }: MiniDrawerProps) {
                                 marginRight: '16px',
                             }}
                         />
-                        <Chip label="Score: 0" variant="outlined" />
+                        <Score />
                     </Box>
                     <Box display="flex" alignItems="center">
-                        <IconButton aria-label="Reset" color="primary">
-                            <RestartAltIcon />
-                        </IconButton>
+                        <Reset />
                         <Divider
                             orientation="vertical"
                             style={{
