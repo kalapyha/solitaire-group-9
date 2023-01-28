@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import Box from '@mui/material/Box';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -39,10 +39,10 @@ const Settings = () => {
             }}
         >
             <StyledTypography variant="h5">Settings:</StyledTypography>
-            <FormControl>
+            <FormControl onChange={(e: FormEvent<HTMLInputElement>) => console.log(e.currentTarget.value)}>
                 <StyledRadioGroup>
                     <StyledCardWrapper>
-                        <FormControlLabel value="Blue" control={<Radio />} label="Blue" color="success" />
+                        <FormControlLabel value="Blue" control={<Radio />} label="Blue" />
                         <Blue />
                     </StyledCardWrapper>
                     <StyledCardWrapper>
