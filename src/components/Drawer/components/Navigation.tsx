@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -11,6 +11,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom';
+import CloseModal from '../../CloseModal/CloseModal';
 
 type NavigationProps = {
     open: boolean;
@@ -24,6 +25,7 @@ const StyledList = styled(List)(() => ({
 }));
 
 const Navigation = ({ open }: NavigationProps): JSX.Element => {
+    const [openModal, setOpenModal] = useState(false);
     return (
         <>
             <StyledList>
@@ -96,9 +98,10 @@ const Navigation = ({ open }: NavigationProps): JSX.Element => {
             </StyledList>
             <Divider />
             <List>
-                {/* TODO show modal with confirm dialog and close if Ok */}
+                {/* TODO show modal with confirm dialog and close if Ok use CONTEXT! */}
                 <ListItem disablePadding sx={{ display: 'block' }}>
                     <ListItemButton
+                        onClick={() => setOpenModal(true)}
                         sx={{
                             minHeight: 48,
                             justifyContent: open ? 'initial' : 'center',
@@ -118,6 +121,7 @@ const Navigation = ({ open }: NavigationProps): JSX.Element => {
                     </ListItemButton>
                 </ListItem>
             </List>
+            <CloseModal open={openModal} handleClose={() => setOpenModal(false)} />
         </>
     );
 };
