@@ -20,6 +20,7 @@ const Deck = ({ cardsArray, autoReveal = true }: DeckdProps) => {
                         isFaceDown={cardsArray.length - 1 === i && autoReveal ? false : isFaceDown}
                         image={image}
                         key={`${value}${cardSuit}`}
+                        isDraggable={cardsArray.length - 1 === i ? true : false}
                     />
                 ))}
             </Stack>

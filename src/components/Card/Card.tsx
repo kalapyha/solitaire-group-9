@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { selectPattern } from '../../features/score/settingsSlice';
 import './Card.scss';
 
-const Card = ({ isFaceDown = true, image }: CardType): JSX.Element => {
+const Card = ({ isFaceDown = true, isDraggable = false, image }: CardType): JSX.Element => {
     const imagePattern = useSelector(selectPattern);
     const renderCardBackPattern = () => {
         switch (imagePattern) {
@@ -29,8 +29,8 @@ const Card = ({ isFaceDown = true, image }: CardType): JSX.Element => {
     return isFaceDown ? (
         renderCardBackPattern()
     ) : (
-        <div onClick={() => setIsActiveCard((curr) => !curr)}>
-            <div className={isActiveCard ? 'border' : ''}>{image}</div>
+        <div onClick={() => setIsActiveCard((curr) => !curr)} draggable={isDraggable}>
+            <div className={`card ${isActiveCard ? 'border' : ''}`}>{image}</div>
         </div>
     );
 };
