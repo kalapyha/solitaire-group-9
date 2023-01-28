@@ -27,4 +27,4 @@ const Deck = ({ cardsArray, autoReveal = true }: DeckdProps) => {
     );
 };
 
-export default Deck;
+export default React.memo(Deck);

@@ -1,10 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -12,17 +11,13 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import HomeIcon from '@mui/icons-material/Home';
-import LogoutIcon from '@mui/icons-material/Logout';
-import SettingsIcon from '@mui/icons-material/Settings';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
 import SwitchDayNight from './components/SwitchDayNight';
 import Reset from './components/Reset';
 import Score from './components/Score';
+import Navigation from './components/Navigation';
+import { Routes, Route } from 'react-router-dom';
+import Board from '../Board/Board';
+import Settings from '../Settings/Settings';
 
 const drawerWidth = 240;
 
@@ -77,11 +72,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 }));
 
-interface MiniDrawerProps {
-    children: React.ReactNode;
-}
-
-export default function MiniDrawer({ children }: MiniDrawerProps) {
+export default function MiniDrawer() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -142,6 +133,7 @@ export default function MiniDrawer({ children }: MiniDrawerProps) {
                     </Box>
                 </Toolbar>
             </AppBar>
+
             <Drawer variant="permanent" open={open}>
                 <DrawerHeader>
                     <IconButton onClick={handleDrawerClose}>
@@ -149,66 +141,16 @@ export default function MiniDrawer({ children }: MiniDrawerProps) {
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                {/* TODO: Move list to its own component with arr of props and map through it */}
-                <List>
-                    {['Home', 'Settings', 'Instructions'].map((text) => (
-                        <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                            <ListItemButton
-                                sx={{
-                                    minHeight: 48,
-                                    justifyContent: open ? 'initial' : 'center',
-                                    px: 2.5,
-                                }}
-                            >
-                                <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : 'auto',
-                                        justifyContent: 'center',
-                                    }}
-                                >
-                                    {text === 'Home' ? (
-                                        <HomeIcon />
-                                    ) : text === 'Settings' ? (
-                                        <SettingsIcon />
-                                    ) : (
-                                        <MenuBookIcon />
-                                    )}
-                                </ListItemIcon>
-                                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List>
-                <Divider />
-                <List>
-                    {['Logout'].map((text) => (
-                        <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                            <ListItemButton
-                                sx={{
-                                    minHeight: 48,
-                                    justifyContent: open ? 'initial' : 'center',
-                                    px: 2.5,
-                                }}
-                            >
-                                <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : 'auto',
-                                        justifyContent: 'center',
-                                    }}
-                                >
-                                    <LogoutIcon />
-                                </ListItemIcon>
-                                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List>
+                <Navigation open={open} />
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1 }}>
                 <DrawerHeader />
-                {children}
+
+                <Routes>
+                    <Route path="/settings" element={<Settings />}></Route>
+                    <Route path="/instructions" element={<div>Instructions ...</div>}></Route>
+                    <Route path="/" element={<Board />}></Route>
+                </Routes>
             </Box>
         </Box>
     );

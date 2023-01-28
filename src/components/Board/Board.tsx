@@ -1,15 +1,15 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import HomeCard from './components/HomeCard';
-import { Box } from '@mui/system';
+import Box from '@mui/material/Box';
 import Deck from '../Deck/Deck';
 import { deckArray } from '../../utils/cards';
 import { shuffleArray } from '../../utils/helpers';
 
-// TODO this shouldn't be here, better lvl up? I created a hook, can use it later
+// TODO this shouldn't be here, move to store as a chunks for each deck
 const shuffledArray = shuffleArray(deckArray);
 
-const Board = () => {
+const Board = (): JSX.Element => {
     return (
         <Box
             style={{
@@ -68,4 +68,4 @@ const Board = () => {
     );
 };
 
-export default Board;
+export default React.memo(Board);
