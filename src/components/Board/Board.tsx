@@ -3,17 +3,27 @@ import Grid from '@mui/material/Grid';
 import HomeCard from './components/HomeCard';
 import Box from '@mui/material/Box';
 import Deck from '../Deck/Deck';
-import { deckArray } from '../../utils/cards';
-import { shuffleArray } from '../../utils/helpers';
 import { useSelector } from 'react-redux';
-import { deckStack } from '../../features/score/tableauSlice';
-
-// TODO this shouldn't be here, move to store as a chunks for each deck
-// const shuffledArray = shuffleArray(deckArray);
+import {
+    deckStack,
+    tableau1,
+    tableau2,
+    tableau3,
+    tableau4,
+    tableau5,
+    tableau6,
+    tableau7,
+} from '../../features/score/tableauSlice';
 
 const Board = (): JSX.Element => {
     const { cards } = useSelector(deckStack);
-    console.log(cards);
+    const cards1 = useSelector(tableau1);
+    const cards2 = useSelector(tableau2);
+    const cards3 = useSelector(tableau3);
+    const cards4 = useSelector(tableau4);
+    const cards5 = useSelector(tableau5);
+    const cards6 = useSelector(tableau6);
+    const cards7 = useSelector(tableau7);
     return (
         <Box
             style={{
@@ -59,13 +69,13 @@ const Board = (): JSX.Element => {
                     alignContent="center"
                     gap={4.5}
                 >
-                    {/* <Deck cardsArray={shuffledArray.slice(24, 25)} />
-                    <Deck cardsArray={shuffledArray.slice(25, 27)} /> */}
-                    {/* <Deck cardsArray={shuffledArray.slice(27, 30)} />
-                    <Deck cardsArray={shuffledArray.slice(30, 34)} />
-                    <Deck cardsArray={shuffledArray.slice(34, 39)} />
-                    <Deck cardsArray={shuffledArray.slice(39, 45)} />
-                    <Deck cardsArray={shuffledArray.slice(45, 52)} /> */}
+                    <Deck cardsArray={cards1.cards} />
+                    <Deck cardsArray={cards2.cards} />
+                    <Deck cardsArray={cards3.cards} />
+                    <Deck cardsArray={cards4.cards} />
+                    <Deck cardsArray={cards5.cards} />
+                    <Deck cardsArray={cards6.cards} />
+                    <Deck cardsArray={cards7.cards} />
                 </Grid>
             </Grid>
         </Box>
