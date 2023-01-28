@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -9,6 +9,8 @@ import Abstract from '../../assets/backs/Abstract';
 import Astronaut from '../../assets/backs/Astronaut';
 import Blue from '../../assets/backs/Blue';
 import Red from '../../assets/backs/Red';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectPattern, changeCardPattern } from '../../features/score/settingsSlice';
 
 const StyledCardWrapper = styled(Box)(({ theme }) => ({
     display: 'flex',
@@ -29,6 +31,8 @@ const StyledRadioGroup = styled(RadioGroup)(({ theme }) => ({
 }));
 
 const Settings = () => {
+    const imagePattern = useSelector(selectPattern);
+    const dispatch = useDispatch();
     return (
         <Box
             style={{
@@ -39,22 +43,42 @@ const Settings = () => {
             }}
         >
             <StyledTypography variant="h5">Settings:</StyledTypography>
-            <FormControl onChange={(e: FormEvent<HTMLInputElement>) => console.log(e.currentTarget.value)}>
+            <FormControl onChange={(e) => dispatch(changeCardPattern((e.target as HTMLInputElement).value))}>
                 <StyledRadioGroup>
                     <StyledCardWrapper>
-                        <FormControlLabel value="Blue" control={<Radio />} label="Blue" />
+                        <FormControlLabel
+                            value="Blue"
+                            control={<Radio />}
+                            label="Blue"
+                            checked={imagePattern === 'Blue'}
+                        />
                         <Blue />
                     </StyledCardWrapper>
                     <StyledCardWrapper>
-                        <FormControlLabel value="Red" control={<Radio />} label="Red" />
+                        <FormControlLabel
+                            value="Red"
+                            control={<Radio />}
+                            label="Red"
+                            checked={imagePattern === 'Red'}
+                        />
                         <Red />
                     </StyledCardWrapper>
                     <StyledCardWrapper>
-                        <FormControlLabel value="Astronaut" control={<Radio />} label="Astronaut" />
+                        <FormControlLabel
+                            value="Astronaut"
+                            control={<Radio />}
+                            label="Astronaut"
+                            checked={imagePattern === 'Astronaut'}
+                        />
                         <Astronaut />
                     </StyledCardWrapper>
                     <StyledCardWrapper>
-                        <FormControlLabel value="Abstract" control={<Radio />} label="Abstract" />
+                        <FormControlLabel
+                            value="Abstract"
+                            control={<Radio />}
+                            label="Abstract"
+                            checked={imagePattern === 'Abstract'}
+                        />
                         <Abstract />
                     </StyledCardWrapper>
                 </StyledRadioGroup>

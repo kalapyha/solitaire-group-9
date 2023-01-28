@@ -21,7 +21,7 @@ const scoreSlice = createSlice({
             state.value += action.payload;
         },
         scoreReset: (state) => {
-            state.value -= state.value;
+            state.value = 0;
         },
     },
 });
