@@ -29,7 +29,7 @@ const Card = ({ isFaceDown = true, isDraggable = false, image }: CardType): JSX.
     return isFaceDown ? (
         renderCardBackPattern()
     ) : (
-        <div onClick={() => setIsActiveCard((curr) => !curr)} draggable={isDraggable}>
+        <div onClick={() => setIsActiveCard((curr) => !curr)} draggable={isDraggable} onDrag={(e) => console.log(e)}>
             <div className={`card ${isActiveCard ? 'border' : ''}`}>{image}</div>
         </div>
     );

@@ -5,11 +5,15 @@ import Box from '@mui/material/Box';
 import Deck from '../Deck/Deck';
 import { deckArray } from '../../utils/cards';
 import { shuffleArray } from '../../utils/helpers';
+import { useSelector } from 'react-redux';
+import { deckStack } from '../../features/score/tableauSlice';
 
 // TODO this shouldn't be here, move to store as a chunks for each deck
-const shuffledArray = shuffleArray(deckArray);
+// const shuffledArray = shuffleArray(deckArray);
 
 const Board = (): JSX.Element => {
+    const { cards } = useSelector(deckStack);
+    console.log(cards);
     return (
         <Box
             style={{
@@ -28,7 +32,7 @@ const Board = (): JSX.Element => {
                     justifyContent="flex-start"
                     alignContent="center"
                 >
-                    <Deck cardsArray={shuffledArray.slice(0, 24)} autoReveal={false} />
+                    <Deck cardsArray={cards} autoReveal={false} />
                 </Grid>
                 <Grid
                     item
@@ -55,13 +59,13 @@ const Board = (): JSX.Element => {
                     alignContent="center"
                     gap={4.5}
                 >
-                    <Deck cardsArray={shuffledArray.slice(24, 25)} />
-                    <Deck cardsArray={shuffledArray.slice(25, 27)} />
-                    <Deck cardsArray={shuffledArray.slice(27, 30)} />
+                    {/* <Deck cardsArray={shuffledArray.slice(24, 25)} />
+                    <Deck cardsArray={shuffledArray.slice(25, 27)} /> */}
+                    {/* <Deck cardsArray={shuffledArray.slice(27, 30)} />
                     <Deck cardsArray={shuffledArray.slice(30, 34)} />
                     <Deck cardsArray={shuffledArray.slice(34, 39)} />
                     <Deck cardsArray={shuffledArray.slice(39, 45)} />
-                    <Deck cardsArray={shuffledArray.slice(45, 52)} />
+                    <Deck cardsArray={shuffledArray.slice(45, 52)} /> */}
                 </Grid>
             </Grid>
         </Box>
