@@ -14,16 +14,21 @@ const Deck = ({ cardsArray, autoReveal = true }: DeckdProps) => {
         <Box>
             {/* TODO Stack is causing some issues with dnd, need to be updated */}
             <Stack spacing={-42}>
-                {cardsArray.map(({ value, cardSuit, isFaceDown, image }: CardType, i) => (
-                    <Card
-                        value={value}
-                        cardSuit={cardSuit}
-                        isFaceDown={cardsArray.length - 1 === i && autoReveal ? false : isFaceDown}
-                        image={image}
-                        key={`${value}${cardSuit}`}
-                        isDraggable={cardsArray.length - 1 === i ? true : false}
-                    />
-                ))}
+                {cardsArray.map(
+                    ({ value, cardSuit, isFaceDown, image, id, canBePutOn, canBePutOnHome }: CardType, i) => (
+                        <Card
+                            value={value}
+                            cardSuit={cardSuit}
+                            isFaceDown={cardsArray.length - 1 === i && autoReveal ? false : isFaceDown}
+                            image={image}
+                            key={`${value}${cardSuit}`}
+                            isDraggable={cardsArray.length - 1 === i ? true : false}
+                            id={id}
+                            canBePutOn={canBePutOn}
+                            canBePutOnHome={canBePutOnHome}
+                        />
+                    ),
+                )}
             </Stack>
         </Box>
     );

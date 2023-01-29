@@ -4,4 +4,7 @@ export interface CardType {
     isFaceDown: boolean;
     isDraggable?: boolean;
     image: JSX.Element;
+    id: string;
+    canBePutOn: string[] | null;
+    canBePutOnHome: string[] | string | null;
 }
