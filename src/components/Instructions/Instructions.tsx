@@ -7,6 +7,7 @@ import List from '@mui/material/List';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import StarIcon from '@mui/icons-material/Star';
 import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
 
 const rulesArray: string[] = [
     'The game starts with a shuffled deck of cards dealt face-down in a specific pattern to form seven columns, called the tableau. The first column has one card, the second has two cards, and so on, until the seventh column has seven cards.',
@@ -21,18 +22,14 @@ const rulesArray: string[] = [
 ];
 const StyledTypography = styled(Typography)(({ theme }) => ({
     marginBottom: theme.spacing(2),
-    color: theme.palette.common.white,
-}));
-const StyledListItemText = styled(ListItemText)(({ theme }) => ({
-    color: theme.palette.common.white,
+    color: theme.palette.common.black,
 }));
 
 const Instructions = () => {
     return (
         <Box
             style={{
-                background:
-                    'radial-gradient(circle, rgba(21,107,25,1) 0%, rgba(40,122,49,1) 45%, rgba(39,110,23,1) 100%)',
+                background: '#f5f5f5',
                 padding: 16,
                 height: '100vh',
             }}
@@ -46,19 +43,23 @@ const Instructions = () => {
                 The goal of the game is to move all of the cards from the tableau and foundation piles to the four
                 foundation piles at the top right of the game board, in order from Ace to King, by suit.
             </StyledTypography>
-            <StyledTypography variant="h6">Here are the basic rules of Klondike solitaire:</StyledTypography>
-            <List>
-                {rulesArray.map((rule, i) => {
-                    return (
-                        <ListItem key={i}>
-                            <ListItemIcon>
-                                <StarIcon color="disabled" />
-                            </ListItemIcon>
-                            <StyledListItemText primary={rule} />
-                        </ListItem>
-                    );
-                })}
-            </List>
+            <Paper>
+                <Box p={2}>
+                    <Typography variant="h6">Here are the basic rules of Klondike solitaire:</Typography>
+                    <List>
+                        {rulesArray.map((rule, i) => {
+                            return (
+                                <ListItem key={i}>
+                                    <ListItemIcon>
+                                        <StarIcon color="disabled" />
+                                    </ListItemIcon>
+                                    <ListItemText primary={rule} />
+                                </ListItem>
+                            );
+                        })}
+                    </List>
+                </Box>
+            </Paper>
         </Box>
     );
 };
