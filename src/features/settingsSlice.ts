@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from '../../store';
+import type { RootState } from '../store';
 
 export interface SettingsState {
     cardPattern: 'Red' | 'Blue' | 'Abstract' | 'Astronaut' | string;

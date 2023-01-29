@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Blue from '../../assets/backs/Blue';
 import Red from '../../assets/backs/Red';
 import Abstract from '../../assets/backs/Abstract';
 import Astronaut from '../../assets/backs/Astronaut';
 import { CardType } from '../../types';
 import { useSelector } from 'react-redux';
-import { selectPattern } from '../../features/score/settingsSlice';
+import { selectPattern } from '../../features/settingsSlice';
 import './Card.scss';
 
 const Card = ({ isFaceDown = true, isDraggable = false, image, id }: CardType): JSX.Element => {
@@ -25,7 +25,6 @@ const Card = ({ isFaceDown = true, isDraggable = false, image, id }: CardType): 
                 return <Blue />;
         }
     };
-    const [isActiveCard, setIsActiveCard] = useState(false);
     return isFaceDown ? (
         renderCardBackPattern()
     ) : (
@@ -35,7 +34,9 @@ const Card = ({ isFaceDown = true, isDraggable = false, image, id }: CardType): 
             draggable={isDraggable}
             onDrag={(e) => console.log(e)}
         >
-            <div className={`card ${isActiveCard ? 'border' : ''}`}>{image}</div>
+            {/* TODO, update with redux active cards state here */}
+            {/* <div className={`card ${isActiveCard ? 'border' : ''}`}>{image}</div> */}
+            <div>{image}</div>
         </div>
     );
 };

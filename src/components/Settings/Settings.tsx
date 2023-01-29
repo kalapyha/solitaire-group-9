@@ -10,7 +10,7 @@ import Astronaut from '../../assets/backs/Astronaut';
 import Blue from '../../assets/backs/Blue';
 import Red from '../../assets/backs/Red';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectPattern, changeCardPattern } from '../../features/score/settingsSlice';
+import { selectPattern, changeCardPattern } from '../../features/settingsSlice';
 
 const StyledCardWrapper = styled(Box)(({ theme }) => ({
     display: 'flex',

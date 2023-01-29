@@ -2,8 +2,8 @@ import React from 'react';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import IconButton from '@mui/material/IconButton';
 import { useDispatch } from 'react-redux';
-import { scoreReset } from '../../../features/score/scoreSlice';
-import { resetCards } from '../../../features/score/tableauSlice';
+import { scoreReset } from '../../../features/scoreSlice';
+import { resetCards } from '../../../features/tableauSlice';
 
 const Reset = () => {
     const dispatch = useDispatch();

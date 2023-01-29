@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import scoreReducer from '../features/score/scoreSlice';
-import settingsReducer from '../features/score/settingsSlice';
-import cardsReducer from '../features/score/tableauSlice';
+import scoreReducer from '../features/scoreSlice';
+import settingsReducer from '../features/settingsSlice';
+import cardsReducer from '../features/tableauSlice';
 
 export const store = configureStore({
     reducer: {

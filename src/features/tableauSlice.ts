@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { RootState } from '../../store';
-import { deckArray } from '../../utils/cards';
-import { shuffleArray } from '../../utils/helpers';
+import type { RootState } from '../store';
+import { deckArray } from '../utils/cards';
+import { shuffleArray } from '../utils/helpers';
 
 const shuffledArray = shuffleArray(deckArray);
 

@@ -13,7 +13,7 @@ import {
     tableau5,
     tableau6,
     tableau7,
-} from '../../features/score/tableauSlice';
+} from '../../features/tableauSlice';
 
 const Board = (): JSX.Element => {
     const { cards } = useSelector(deckStack);
