@@ -12,6 +12,7 @@ type DeckdProps = {
 const Deck = ({ cardsArray, autoReveal = true }: DeckdProps) => {
     return (
         <Box>
+            {/* TODO Stack is causing some issues with dnd, need to be updated */}
             <Stack spacing={-42}>
                 {cardsArray.map(({ value, cardSuit, isFaceDown, image }: CardType, i) => (
                     <Card

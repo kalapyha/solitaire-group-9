@@ -18,6 +18,7 @@ import Navigation from './components/Navigation';
 import { Routes, Route } from 'react-router-dom';
 import Board from '../Board/Board';
 import Settings from '../Settings/Settings';
+import Instructions from '../Instructions/Instructions';
 
 const drawerWidth = 240;
 
@@ -148,7 +149,7 @@ export default function MiniDrawer() {
 
                 <Routes>
                     <Route path="/settings" element={<Settings />}></Route>
-                    <Route path="/instructions" element={<div>Instructions ...</div>}></Route>
+                    <Route path="/instructions" element={<Instructions />}></Route>
                     <Route path="/" element={<Board />}></Route>
                 </Routes>
             </Box>

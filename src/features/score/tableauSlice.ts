@@ -55,10 +55,20 @@ const tableauSlice = createSlice({
         todoTableau: (state) => {
             state;
         },
+        resetCards: (state) => {
+            const newShuffledArray = shuffleArray(deckArray);
+            state.deckStack.cards = newShuffledArray.slice(0, 24);
+            state.tableau1.cards = newShuffledArray.slice(24, 25);
+            state.tableau2.cards = newShuffledArray.slice(25, 27);
+            state.tableau3.cards = newShuffledArray.slice(27, 30);
+            state.tableau4.cards = newShuffledArray.slice(30, 34);
+            state.tableau5.cards = newShuffledArray.slice(34, 39);
+            state.tableau6.cards = newShuffledArray.slice(45, 52);
+        },
     },
 });
 
-export const { todoTableau } = tableauSlice.actions;
+export const { todoTableau, resetCards } = tableauSlice.actions;
 
 export const deckStack = (state: RootState) => state.cards.deckStack;
 export const tableau1 = (state: RootState) => state.cards.tableau1;
