@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { styled } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -11,7 +11,8 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom';
-import CloseModal from '../../CloseModal/CloseModal';
+
+const CloseModal = React.lazy(() => import('../../CloseModal/CloseModal'));
 
 type NavigationProps = {
     open: boolean;
@@ -121,7 +122,9 @@ const Navigation = ({ open }: NavigationProps): JSX.Element => {
                     </ListItemButton>
                 </ListItem>
             </List>
-            <CloseModal open={openModal} handleClose={() => setOpenModal(false)} />
+            <Suspense fallback={<div>Loading...</div>}>
+                <CloseModal open={openModal} handleClose={() => setOpenModal(false)} />
+            </Suspense>
         </>
     );
 };
