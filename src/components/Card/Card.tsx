@@ -36,6 +36,7 @@ const Card = ({ isFaceDown = true, isDraggable = false, image, id }: CardType): 
         >
             {/* TODO, update with redux active cards state here */}
             {/* <div className={`card ${isActiveCard ? 'border' : ''}`}>{image}</div> */}
+            {/* asdf  */}
             <div>{image}</div>
         </div>
     );
