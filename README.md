@@ -48,3 +48,6 @@ Here are the basic rules of Klondike solitaire:
 -   The player can flip over the face-down cards in the tableau to reveal them.
 
 -   The player wins the game when all cards have been moved to the foundation piles in order from Ace to King, by suit.
+
+# Dependencies 
+A summary of technology utilized
