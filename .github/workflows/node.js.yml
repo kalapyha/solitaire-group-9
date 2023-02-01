@@ -19,8 +19,6 @@ jobs:
                   node-version: ${{ matrix.node-version }}
             - name: install modules 🛠️
               run: npm install
-            # basically npm install but only installs from package-lock
-            - run: npm ci
             - run: npm run lint
             - run: npm t
 
