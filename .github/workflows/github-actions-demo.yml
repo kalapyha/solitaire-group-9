@@ -21,7 +21,7 @@ jobs:
               run: npm install
             - name: build project 🏗️
               run: npm run build
-            - name: linter 🔬
-              run: npm run test
-            - name: run lint 🔬
+            - name: linter ❕
+              run: npm run lint
+            - name: run tests 🔬
               run: npm run test
