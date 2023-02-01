@@ -25,11 +25,6 @@ jobs:
             - name: Run Cypress tests
               run: npx cypress run --config baseUrl=http://localhost:3000
 
-            - name: Upload Cypress artifacts
-              uses: actions/upload-artifact@v1
-              with:
-                  name: cypress-results
-                  path: cypress/videos cypress/screenshots
             - name: Upload test results
               uses: actions/upload-artifact@v1
               with:
