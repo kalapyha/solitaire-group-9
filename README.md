@@ -1,4 +1,4 @@
-[![Cypress Test on Push](https://github.com/kalapyha/solitaire-group-9/actions/workflows/cypress-test.yml/badge.svg?branch=main)](https://github.com/kalapyha/solitaire-group-9/actions/workflows/cypress-test.yml)
+[![E2E Tests](https://github.com/kalapyha/solitaire-group-9/actions/workflows/cypress-test.yml/badge.svg?branch=main)](https://github.com/kalapyha/solitaire-group-9/actions/workflows/cypress-test.yml)
 
 # Getting Started
 
