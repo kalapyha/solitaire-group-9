@@ -53,7 +53,7 @@ const StyledSwitch = styled(Switch)(({ theme }) => ({
 const SwitchDayNight = () => {
     return (
         <Box>
-            <StyledSwitch />
+            <StyledSwitch data-testid="day-night-switcher" />
         </Box>
     );
 };
