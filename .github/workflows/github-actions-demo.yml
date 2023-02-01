@@ -25,10 +25,3 @@ jobs:
               run: npm run lint
             - name: run tests 🔬
               run: npm run test
-            - name: run e2e 🤖
-              run: npm run cypress
-            - name: Upload Cypress artifacts
-              uses: actions/upload-artifact@v1
-              with:
-                  name: cypress-results
-                  path: cypress/videos cypress/screenshots

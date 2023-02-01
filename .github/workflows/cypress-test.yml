@@ -1,0 +1,35 @@
+name: Cypress Test on Push
+
+on:
+    push:
+        branches: [master]
+
+jobs:
+    cypress-tests:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version: 14
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Start Local Server
+              run: |
+                  echo "Starting local server on port 3000..."
+                  nohup python -m SimpleHTTPServer 3000 &
+
+            - name: Run Cypress tests
+              run: npx cypress run --config baseUrl=http://localhost:3000
+
+            - name: Upload Cypress artifacts
+              uses: actions/upload-artifact@v1
+              with:
+                  name: cypress-results
+                  path: cypress/videos cypress/screenshots
