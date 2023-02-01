@@ -22,7 +22,7 @@ jobs:
             - name: Start Local Server
               run: |
                   echo "Starting local server on port 3000..."
-                  nohup python -m SimpleHTTPServer 3000 &
+                  nohup python3 -m http.server 3000 &
 
             - name: Run Cypress tests
               run: npx cypress run --config baseUrl=http://localhost:3000
