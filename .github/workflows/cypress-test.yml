@@ -1,26 +1,24 @@
 name: Cypress Test on Push
-
+run-name: ${{ github.actor }} is running e2e 🚀
 on:
     push:
         branches: [main]
     pull_request:
         branches: [main]
 jobs:
-    cypress-tests:
+    init:
         runs-on: ubuntu-latest
-
+        strategy:
+            matrix:
+                node-varsion: [17.x]
         steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
-
-            - name: Set up Node.js
-              uses: actions/setup-node@v2
+            - uses: actions/checkout@v3
+            - name: Staring Node.js ${{ matrix.node-version }} 🖥️
+              uses: actions/setup-node@v3
               with:
-                  node-version: 14
-
-            - name: Install dependencies
-              run: npm ci
-
+                  node-version: ${{ matrix.node-version }}
+            - name: install modules 🛠️
+              run: npm install
             - name: Start Local Server
               run: |
                   echo "Starting local server on port 3000..."
