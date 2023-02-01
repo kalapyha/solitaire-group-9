@@ -24,11 +24,12 @@ jobs:
                   run: npm start &
     job2:
         test:
-            - name: Run Cypress tests
-              run: npx cypress run --config baseUrl=http://localhost:3000
+            steps:
+                - name: Run Cypress tests
+                  run: npx cypress run --config baseUrl=http://localhost:3000
 
-            - name: Upload test results
-              uses: actions/upload-artifact@v1
-              with:
-                  name: test-results
-                  path: cypress/reports
+                - name: Upload test results
+                  uses: actions/upload-artifact@v1
+                  with:
+                      name: test-results
+                      path: cypress/reports
