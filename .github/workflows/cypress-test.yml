@@ -19,6 +19,8 @@ jobs:
                   node-version: ${{ matrix.node-version }}
             - name: install modules 🛠️
               run: npm install
+            - name: start project 🏗️
+              run: npm run start
             - name: Start Local Server
               run: |
                   echo "Starting local server on port 3000..."
