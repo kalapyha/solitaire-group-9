@@ -32,3 +32,8 @@ jobs:
               with:
                   name: cypress-results
                   path: cypress/videos cypress/screenshots
+            - name: Upload test results
+              uses: actions/upload-artifact@v1
+              with:
+                  name: test-results
+                  path: cypress/reports
