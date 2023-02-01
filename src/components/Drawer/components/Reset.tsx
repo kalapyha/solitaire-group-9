@@ -10,6 +10,7 @@ const Reset = () => {
 
     return (
         <IconButton
+            data-testid="reset-score-btn"
             aria-label="Reset"
             color="primary"
             onClick={() => {
