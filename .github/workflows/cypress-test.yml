@@ -20,8 +20,8 @@ jobs:
             - name: install modules 🛠️
               run: npm install
             - name: start project 🏗️
-              run: npm run start &
-            - name: Start Local Server
+              run: npm start &
+
             - name: Run Cypress tests
               run: npx cypress run --config baseUrl=http://localhost:3000
 
