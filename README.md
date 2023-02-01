@@ -1,3 +1,5 @@
+[![Cypress Test on Push](https://github.com/kalapyha/solitaire-group-9/actions/workflows/cypress-test.yml/badge.svg?branch=main)](https://github.com/kalapyha/solitaire-group-9/actions/workflows/cypress-test.yml)
+
 # Getting Started
 
 Check this link to see build version https://classy-pony-87ed97.netlify.app/
@@ -49,5 +51,6 @@ Here are the basic rules of Klondike solitaire:
 
 -   The player wins the game when all cards have been moved to the foundation piles in order from Ace to King, by suit.
 
-# Dependencies 
+# Dependencies
+
 A summary of technology utilized
