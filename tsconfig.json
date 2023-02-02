@@ -3,7 +3,7 @@
     "compilerOptions": {
         "target": "es5",
         "module": "esnext",
-        "types": ["node"],
+        "types": ["jest", "node"],
         "moduleResolution": "node",
         "esModuleInterop": true,
         "typeRoots": ["./src/@types", "./node_modules/@types"],
