@@ -9,8 +9,7 @@ type DeckdProps = {
     autoReveal?: boolean;
 };
 
-// @ts-expect-error
-const Deck = ({ cardsArray, autoReveal = true }: DeckdProps) => {
+const Deck = ({ cardsArray }: DeckdProps) => {
     return (
         <Box>
             {/* TODO Stack is causing some issues with dnd, need to be updated */}
