@@ -182,10 +182,10 @@ const tableauSlice = createSlice({
             state.tableau5.cards = newShuffledArray.slice(34, 39).map((card) => {
                 return { ...card, stackId: 5 };
             });
-            state.tableau5.cards = newShuffledArray.slice(39, 45).map((card) => {
+            state.tableau6.cards = newShuffledArray.slice(39, 45).map((card) => {
                 return { ...card, stackId: 6 };
             });
-            state.tableau6.cards = newShuffledArray.slice(45, 52).map((card) => {
+            state.tableau7.cards = newShuffledArray.slice(45, 52).map((card) => {
                 return { ...card, stackId: 7 };
             });
             state.activeCard = {};
