@@ -15,7 +15,7 @@ const Deck = ({ cardsArray, autoReveal = true }: DeckdProps) => {
             {/* TODO Stack is causing some issues with dnd, need to be updated */}
             <Stack spacing={-42}>
                 {cardsArray.map(
-                    ({ value, cardSuit, isFaceDown, image, id, canBePutOn, canBePutOnHome }: CardType, i) => (
+                    ({ value, cardSuit, isFaceDown, image, id, canBePutOn, canBePutOnHome, stackId }: CardType, i) => (
                         <Card
                             value={value}
                             cardSuit={cardSuit}
@@ -24,6 +24,7 @@ const Deck = ({ cardsArray, autoReveal = true }: DeckdProps) => {
                             key={`${value}${cardSuit}`}
                             isDraggable={cardsArray.length - 1 === i ? true : false}
                             id={id}
+                            stackId={stackId}
                             canBePutOn={canBePutOn}
                             canBePutOnHome={canBePutOnHome}
                         />

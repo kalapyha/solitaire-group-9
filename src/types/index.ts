@@ -7,4 +7,5 @@ export interface CardType {
     id: string;
     canBePutOn: string[] | null;
     canBePutOnHome: string[] | string | null;
+    stackId: string | number;
 }

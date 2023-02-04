@@ -6,10 +6,14 @@ import Astronaut from '../../assets/backs/Astronaut';
 import { CardType } from '../../types';
 import { useSelector } from 'react-redux';
 import { selectPattern } from '../../features/settingsSlice';
+import { useDispatch } from 'react-redux';
+import { setActiveCard, activeCard } from '../../features/tableauSlice';
 import './Card.scss';
 
-const Card = ({ isFaceDown = true, isDraggable = false, image, id }: CardType): JSX.Element => {
+const Card = (props: CardType): JSX.Element => {
     const imagePattern = useSelector(selectPattern);
+    const curActiveCard: any = useSelector(activeCard);
+    const dispatch = useDispatch();
     const renderCardBackPattern = () => {
         switch (imagePattern) {
             case 'Blue':
@@ -25,18 +29,19 @@ const Card = ({ isFaceDown = true, isDraggable = false, image, id }: CardType): 
                 return <Blue />;
         }
     };
-    return isFaceDown ? (
+    return props.isFaceDown ? (
         renderCardBackPattern()
     ) : (
         <div
-            id={id}
-            onClick={(e) => console.log(e.currentTarget)}
-            draggable={isDraggable}
+            id={`${props.stackId}-${props.id}`}
+            onClick={() => dispatch(setActiveCard(props))}
+            draggable={props.isDraggable}
             onDrag={(e) => console.log(e)}
+            style={curActiveCard.id === props.id ? { border: '2px solid yellow' } : {}}
         >
             {/* TODO, update with redux active cards state here */}
             {/* <div className={`card ${isActiveCard ? 'border' : ''}`}>{image}</div> */}
-            <div>{image}</div>
+            <div>{props.image}</div>
         </div>
     );
 };
