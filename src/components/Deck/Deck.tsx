@@ -9,6 +9,7 @@ type DeckdProps = {
     autoReveal?: boolean;
 };
 
+// @ts-expect-error
 const Deck = ({ cardsArray, autoReveal = true }: DeckdProps) => {
     return (
         <Box>
@@ -19,7 +20,7 @@ const Deck = ({ cardsArray, autoReveal = true }: DeckdProps) => {
                         <Card
                             value={value}
                             cardSuit={cardSuit}
-                            isFaceDown={cardsArray.length - 1 === i && autoReveal ? false : isFaceDown}
+                            isFaceDown={isFaceDown}
                             image={image}
                             key={`${value}${cardSuit}`}
                             isDraggable={cardsArray.length - 1 === i ? true : false}

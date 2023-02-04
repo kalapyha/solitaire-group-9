@@ -12,7 +12,7 @@ import './Card.scss';
 
 const Card = (props: CardType): JSX.Element => {
     const imagePattern = useSelector(selectPattern);
-    const curActiveCard: any = useSelector(activeCard);
+    const curActiveCard = useSelector(activeCard);
     const dispatch = useDispatch();
     const renderCardBackPattern = () => {
         switch (imagePattern) {
@@ -35,9 +35,16 @@ const Card = (props: CardType): JSX.Element => {
         <div
             id={`${props.stackId}-${props.id}`}
             onClick={() => dispatch(setActiveCard(props))}
+            onContextMenu={(e) => console.log(e)}
             draggable={props.isDraggable}
             onDrag={(e) => console.log(e)}
-            style={curActiveCard.id === props.id ? { border: '2px solid yellow' } : {}}
+            style={
+                (curActiveCard as CardType).id === props.id
+                    ? { border: '2px solid yellow', marginTop: '-300px' }
+                    : props.isFaceDown
+                    ? {}
+                    : { paddingTop: '35px' }
+            }
         >
             {/* TODO, update with redux active cards state here */}
             {/* <div className={`card ${isActiveCard ? 'border' : ''}`}>{image}</div> */}

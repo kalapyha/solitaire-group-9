@@ -5,84 +5,102 @@ import { deckArray } from '../utils/cards';
 import { shuffleArray } from '../utils/helpers';
 
 const shuffledArray = shuffleArray(deckArray);
+// move to utils
+const revealLastCard = (deck) => {
+    if (!deck.length) {
+        return [];
+    }
+    if (deck.length === 1) {
+        return [{ ...deck.slice(-1)[0], isFaceDown: false }];
+    }
+    const lastCard = { ...deck.slice(-1)[0], isFaceDown: false };
+    return [...deck.slice(0, deck.length - 1), lastCard];
+};
 
 const initialState = {
     tableau1: {
         id: 1,
         title: 'stack 1',
-        cards: shuffledArray.slice(24, 25).map((card) => {
-            return {
-                ...card,
-                stackId: 1,
-                isFaceDown: false,
-            };
-        }),
+        cards: revealLastCard(
+            shuffledArray.slice(24, 25).map((card) => {
+                return {
+                    ...card,
+                    stackId: 1,
+                };
+            }),
+        ),
     },
     tableau2: {
         id: 2,
         title: 'stack 2',
-        cards: shuffledArray.slice(25, 27).map((card) => {
-            return {
-                ...card,
-                stackId: 2,
-                isFaceDown: false,
-            };
-        }),
+        cards: revealLastCard(
+            shuffledArray.slice(25, 27).map((card) => {
+                return {
+                    ...card,
+                    stackId: 2,
+                };
+            }),
+        ),
     },
     tableau3: {
         id: 3,
         title: 'stack 3',
-        cards: shuffledArray.slice(27, 30).map((card) => {
-            return {
-                ...card,
-                stackId: 3,
-                isFaceDown: false,
-            };
-        }),
+        cards: revealLastCard(
+            shuffledArray.slice(27, 30).map((card) => {
+                return {
+                    ...card,
+                    stackId: 3,
+                };
+            }),
+        ),
     },
     tableau4: {
         id: 4,
         title: 'stack 4',
-        cards: shuffledArray.slice(30, 34).map((card) => {
-            return {
-                ...card,
-                stackId: 4,
-                isFaceDown: false,
-            };
-        }),
+        cards: revealLastCard(
+            shuffledArray.slice(30, 34).map((card) => {
+                return {
+                    ...card,
+                    stackId: 4,
+                };
+            }),
+        ),
     },
     tableau5: {
         id: 5,
         title: 'stack 5',
-        cards: shuffledArray.slice(34, 39).map((card) => {
-            return {
-                ...card,
-                stackId: 5,
-                isFaceDown: false,
-            };
-        }),
+        cards: revealLastCard(
+            shuffledArray.slice(34, 39).map((card) => {
+                return {
+                    ...card,
+                    stackId: 5,
+                };
+            }),
+        ),
     },
     tableau6: {
         id: 6,
         title: 'stack 6',
-        cards: shuffledArray.slice(39, 45).map((card) => {
-            return {
-                ...card,
-                stackId: 6,
-                isFaceDown: false,
-            };
-        }),
+        cards: revealLastCard(
+            shuffledArray.slice(39, 45).map((card) => {
+                return {
+                    ...card,
+                    stackId: 6,
+                };
+            }),
+        ),
     },
     tableau7: {
         id: 7,
         title: 'stack 7',
-        cards: shuffledArray.slice(45, 52).map((card) => {
-            return {
-                ...card,
-                stackId: 7,
-                isFaceDown: false,
-            };
-        }),
+        cards: revealLastCard(
+            shuffledArray.slice(45, 52).map((card) => {
+                return {
+                    ...card,
+                    stackId: 7,
+                };
+            }),
+        ),
     },
     deckStack: {
         id: 8,
@@ -127,15 +145,18 @@ const tableauSlice = createSlice({
             } else if (state.activeCard?.id && state.activeCard?.id !== args.payload.id) {
                 if (state.activeCard?.canBePutOn?.[0].includes(args.payload.id)) {
                     const activeCardStack = state.activeCard?.stackId;
+                    // TODO add logic to move small stack of flipped cards
                     const cardToMove = state[`tableau${activeCardStack}`].cards.slice(-1);
-                    state[`tableau${activeCardStack}`].cards = state[`tableau${activeCardStack}`].cards.slice(
-                        0,
-                        state[`tableau${activeCardStack}`].cards.length - 1,
+                    state[`tableau${activeCardStack}`].cards = revealLastCard(
+                        state[`tableau${activeCardStack}`].cards.slice(
+                            0,
+                            state[`tableau${activeCardStack}`].cards.length - 1,
+                        ),
                     );
 
                     state[`tableau${args.payload.stackId}`].cards = [
                         ...state[`tableau${args.payload.stackId}`].cards,
-                        ...cardToMove,
+                        { ...cardToMove[0], isFaceDown: false, stackId: args.payload.stackId },
                     ];
                     state.activeCard = {};
                 }
