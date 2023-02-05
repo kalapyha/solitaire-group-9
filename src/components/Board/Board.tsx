@@ -18,7 +18,6 @@ import {
     homeDiamonds,
     homeSpades,
 } from '../../features/tableauSlice';
-import { CardType } from '~/types';
 
 const Board = (): JSX.Element => {
     const { cards } = useSelector(deckStack);
@@ -63,10 +62,10 @@ const Board = (): JSX.Element => {
                     alignContent="center"
                     gap={3}
                 >
-                    <HomeCard showHomeBorder suitImage="♥" cardsArray={home1.cards} />
-                    <HomeCard showHomeBorder suitImage="♣" cardsArray={home2.cards} />
-                    <HomeCard showHomeBorder suitImage="♦" cardsArray={home3.cards} />
-                    <HomeCard showHomeBorder suitImage="♠" cardsArray={home4.cards} />
+                    <HomeCard showHomeBorder suitImage="♥" cardsArray={home1.cards as []} />
+                    <HomeCard showHomeBorder suitImage="♣" cardsArray={home2.cards as []} />
+                    <HomeCard showHomeBorder suitImage="♦" cardsArray={home3.cards as []} />
+                    <HomeCard showHomeBorder suitImage="♠" cardsArray={home4.cards as []} />
                 </Grid>
                 <Grid
                     item

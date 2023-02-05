@@ -18,16 +18,10 @@ const StyledTypography = styled(Typography)(() => ({
     color: 'rgba(0, 0, 0, 0.10)',
 }));
 
-type CardsArray = {
-    id: number;
-    title: string;
-    cards: never[];
-};
-
 type HomeCardProps = {
     showHomeBorder?: boolean;
     suitImage?: '♣' | '♦' | '♥' | '♠' | '';
-    cardsArray: any[];
+    cardsArray: [];
 };
 
 const HomeCard = ({ showHomeBorder = false, suitImage = '', cardsArray }: HomeCardProps) => {
