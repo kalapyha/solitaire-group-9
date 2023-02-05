@@ -7,7 +7,7 @@ import { CardType } from '../../types';
 import { useSelector } from 'react-redux';
 import { selectPattern } from '../../features/settingsSlice';
 import { useDispatch } from 'react-redux';
-import { setActiveCard, activeCard } from '../../features/tableauSlice';
+import { setActiveCard, activeCard, moveCardToHome } from '../../features/tableauSlice';
 import './Card.scss';
 
 const Card = (props: CardType): JSX.Element => {
@@ -34,8 +34,8 @@ const Card = (props: CardType): JSX.Element => {
     ) : (
         <div
             id={`${props.stackId}-${props.id}`}
-            onClick={() => dispatch(setActiveCard(props))}
-            onContextMenu={(e) => console.log(e)}
+            onClick={() => dispatch(setActiveCard({ ...props, image: {} }))}
+            onDoubleClick={() => dispatch(moveCardToHome(props))}
             draggable={props.isDraggable}
             onDrag={(e) => console.log(e)}
             style={

@@ -13,7 +13,12 @@ import {
     tableau5,
     tableau6,
     tableau7,
+    homeHearts,
+    homeClubs,
+    homeDiamonds,
+    homeSpades,
 } from '../../features/tableauSlice';
+import { CardType } from '~/types';
 
 const Board = (): JSX.Element => {
     const { cards } = useSelector(deckStack);
@@ -24,6 +29,10 @@ const Board = (): JSX.Element => {
     const cards5 = useSelector(tableau5);
     const cards6 = useSelector(tableau6);
     const cards7 = useSelector(tableau7);
+    const home1 = useSelector(homeHearts);
+    const home2 = useSelector(homeClubs);
+    const home3 = useSelector(homeDiamonds);
+    const home4 = useSelector(homeSpades);
     return (
         <Box
             style={{
@@ -54,10 +63,10 @@ const Board = (): JSX.Element => {
                     alignContent="center"
                     gap={3}
                 >
-                    <HomeCard showHomeBorder suitImage="♥" />
-                    <HomeCard showHomeBorder suitImage="♣" />
-                    <HomeCard showHomeBorder suitImage="♦" />
-                    <HomeCard showHomeBorder suitImage="♠" />
+                    <HomeCard showHomeBorder suitImage="♥" cardsArray={home1.cards} />
+                    <HomeCard showHomeBorder suitImage="♣" cardsArray={home2.cards} />
+                    <HomeCard showHomeBorder suitImage="♦" cardsArray={home3.cards} />
+                    <HomeCard showHomeBorder suitImage="♠" cardsArray={home4.cards} />
                 </Grid>
                 <Grid
                     item

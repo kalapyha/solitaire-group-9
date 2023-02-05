@@ -140,12 +140,15 @@ const tableauSlice = createSlice({
     initialState: initialState,
     reducers: {
         setActiveCard: (state, args) => {
+            // Same card click => reset active card
             if (args.payload.id === state.activeCard?.id) {
                 state.activeCard = {};
             } else if (state.activeCard?.id && state.activeCard?.id !== args.payload.id) {
-                if (state.activeCard?.canBePutOn?.[0].includes(args.payload.id)) {
+                if (args.payload.stackId >= 10) {
+                    // TODO check if it moves from tableau to home here
+                } else if (state.activeCard?.canBePutOn?.[0].includes(args.payload.id)) {
                     const activeCardStack = state.activeCard?.stackId;
-                    // TODO add logic to move small stack of flipped cards
+                    // TODO add logic to move small stack of flipped cards, now it is only one card
                     const cardToMove = state[`tableau${activeCardStack}`].cards.slice(-1);
                     state[`tableau${activeCardStack}`].cards = revealLastCard(
                         state[`tableau${activeCardStack}`].cards.slice(
@@ -161,39 +164,84 @@ const tableauSlice = createSlice({
                     state.activeCard = {};
                 }
             } else {
-                state.activeCard = args.payload;
+                state.activeCard = { ...args.payload, image: null };
+            }
+        },
+        moveCardToHome: (state, args) => {
+            if (args.payload.value === 1) {
+                state.activeCard = {};
+                // TODO need to add logic for other cards
+                state[`tableau${args.payload.stackId}`].cards = revealLastCard(
+                    state[`tableau${args.payload.stackId}`].cards.slice(
+                        0,
+                        state[`tableau${args.payload.stackId}`].cards.length - 1,
+                    ),
+                );
+                // Move Ace to home
+                switch (args.payload.cardSuit) {
+                    case '♥':
+                        state.homeHearts.cards = [{ ...args.payload, stackId: state.homeHearts.id }];
+                        break;
+                    case '♦':
+                        state.homeDiamonds.cards = [{ ...args.payload, stackId: state.homeDiamonds.id }];
+                        break;
+                    case '♣':
+                        state.homeClubs.cards = [{ ...args.payload, stackId: state.homeClubs.id }];
+                        break;
+                    case '♠':
+                        state.homeSpades.cards = [{ ...args.payload, stackId: state.homeSpades.id }];
+                        break;
+
+                    default:
+                        break;
+                }
             }
         },
         resetCards: (state) => {
             const newShuffledArray = shuffleArray(deckArray);
             state.deckStack.cards = newShuffledArray.slice(0, 24);
-            state.tableau1.cards = newShuffledArray.slice(24, 25).map((card) => {
-                return { ...card, stackId: 1 };
-            });
-            state.tableau2.cards = newShuffledArray.slice(25, 27).map((card) => {
-                return { ...card, stackId: 2 };
-            });
-            state.tableau3.cards = newShuffledArray.slice(27, 30).map((card) => {
-                return { ...card, stackId: 3 };
-            });
-            state.tableau4.cards = newShuffledArray.slice(30, 34).map((card) => {
-                return { ...card, stackId: 4 };
-            });
-            state.tableau5.cards = newShuffledArray.slice(34, 39).map((card) => {
-                return { ...card, stackId: 5 };
-            });
-            state.tableau6.cards = newShuffledArray.slice(39, 45).map((card) => {
-                return { ...card, stackId: 6 };
-            });
-            state.tableau7.cards = newShuffledArray.slice(45, 52).map((card) => {
-                return { ...card, stackId: 7 };
-            });
+            // TODO need to
+            state.tableau1.cards = revealLastCard(
+                newShuffledArray.slice(24, 25).map((card) => {
+                    return { ...card, stackId: 1 };
+                }),
+            );
+            state.tableau2.cards = revealLastCard(
+                newShuffledArray.slice(25, 27).map((card) => {
+                    return { ...card, stackId: 2 };
+                }),
+            );
+            state.tableau3.cards = revealLastCard(
+                newShuffledArray.slice(27, 30).map((card) => {
+                    return { ...card, stackId: 3 };
+                }),
+            );
+            state.tableau4.cards = revealLastCard(
+                newShuffledArray.slice(30, 34).map((card) => {
+                    return { ...card, stackId: 4 };
+                }),
+            );
+            state.tableau5.cards = revealLastCard(
+                newShuffledArray.slice(34, 39).map((card) => {
+                    return { ...card, stackId: 5 };
+                }),
+            );
+            state.tableau6.cards = revealLastCard(
+                newShuffledArray.slice(39, 45).map((card) => {
+                    return { ...card, stackId: 6 };
+                }),
+            );
+            state.tableau7.cards = revealLastCard(
+                newShuffledArray.slice(45, 52).map((card) => {
+                    return { ...card, stackId: 7 };
+                }),
+            );
             state.activeCard = {};
         },
     },
 });
 
-export const { setActiveCard, resetCards } = tableauSlice.actions;
+export const { setActiveCard, resetCards, moveCardToHome } = tableauSlice.actions;
 
 export const activeCard = (state: RootState) => state.cards.activeCard;
 export const deckStack = (state: RootState) => state.cards.deckStack;
@@ -204,5 +252,9 @@ export const tableau4 = (state: RootState) => state.cards.tableau4;
 export const tableau5 = (state: RootState) => state.cards.tableau5;
 export const tableau6 = (state: RootState) => state.cards.tableau6;
 export const tableau7 = (state: RootState) => state.cards.tableau7;
+export const homeHearts = (state: RootState) => state.cards.homeHearts;
+export const homeDiamonds = (state: RootState) => state.cards.homeDiamonds;
+export const homeSpades = (state: RootState) => state.cards.homeSpades;
+export const homeClubs = (state: RootState) => state.cards.homeClubs;
 
 export default tableauSlice.reducer;
