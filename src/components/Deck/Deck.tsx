@@ -13,9 +13,16 @@ const Deck = ({ cardsArray }: DeckdProps) => {
     return (
         <Box>
             {/* TODO Stack is causing some issues with dnd, need to be updated */}
-            <Stack spacing={-42}>
+            <div
+                style={{
+                    position: 'relative',
+                    width: '200px',
+                    height: '300px',
+                    marginRight: 30,
+                }}
+            >
                 {cardsArray.map(
-                    ({ value, cardSuit, isFaceDown, image, id, canBePutOn, canBePutOnHome, stackId }: CardType, i) => (
+                    ({ value, cardSuit, isFaceDown, image, canBePutOn, canBePutOnHome, stackId }: CardType, i) => (
                         <Card
                             value={value}
                             cardSuit={cardSuit}
@@ -23,14 +30,14 @@ const Deck = ({ cardsArray }: DeckdProps) => {
                             image={image}
                             key={`${value}${cardSuit}`}
                             isDraggable={cardsArray.length - 1 === i ? true : false}
-                            id={id}
+                            id={String(i)}
                             stackId={stackId}
                             canBePutOn={canBePutOn}
                             canBePutOnHome={canBePutOnHome}
                         />
                     ),
                 )}
-            </Stack>
+            </div>
         </Box>
     );
 };

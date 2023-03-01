@@ -27,23 +27,21 @@ type HomeCardProps = {
 const HomeCard = ({ showHomeBorder = false, suitImage = '', cardsArray }: HomeCardProps) => {
     // @ts-ignore
     return cardsArray?.length ? (
-        <Box>
+        <Box style={{ position: 'relative', width: '200px', height: '300px', marginRight: 30 }}>
             {/* TODO Stack is causing some issues with dnd, need to be updated */}
-            <Stack>
-                {cardsArray.map(({ value, cardSuit, isFaceDown, image, id, canBePutOn, canBePutOnHome, stackId }) => (
-                    <Card
-                        value={value}
-                        cardSuit={cardSuit}
-                        isFaceDown={isFaceDown}
-                        image={image}
-                        key={`${value}${cardSuit}`}
-                        id={id}
-                        stackId={stackId}
-                        canBePutOn={canBePutOn}
-                        canBePutOnHome={canBePutOnHome}
-                    />
-                ))}
-            </Stack>
+            {cardsArray.map(({ value, cardSuit, isFaceDown, image, canBePutOn, canBePutOnHome, stackId }, i) => (
+                <Card
+                    value={value}
+                    cardSuit={cardSuit}
+                    isFaceDown={isFaceDown}
+                    image={image}
+                    key={`${value}${cardSuit}`}
+                    id={String(i)}
+                    stackId={stackId}
+                    canBePutOn={canBePutOn}
+                    canBePutOnHome={canBePutOnHome}
+                />
+            ))}
         </Box>
     ) : (
         <StyledCard style={{ border: showHomeBorder ? `5px solid rgb(253,218,13)` : 'none' }}>

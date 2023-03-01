@@ -133,6 +133,8 @@ const initialState = {
         cards: [],
     },
     activeCard: {},
+    moveFrom: {},
+    moveTo: {},
 };
 
 const tableauSlice = createSlice({
