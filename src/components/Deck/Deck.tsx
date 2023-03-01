@@ -2,6 +2,8 @@ import React from 'react';
 import { CardType } from '../../types';
 import Card from '../Card/Card';
 import Box from '@mui/material/Box';
+import { useDispatch } from 'react-redux';
+import { setMoveTo } from '../../features/tableauSlice';
 
 type DeckdProps = {
     cardsArray: CardType[];
@@ -9,6 +11,8 @@ type DeckdProps = {
 };
 
 const Deck = ({ cardsArray }: DeckdProps) => {
+    const dispatch = useDispatch();
+    const lastCard = cardsArray[cardsArray.length - 1];
     return (
         <Box
             style={{
@@ -17,11 +21,20 @@ const Deck = ({ cardsArray }: DeckdProps) => {
                 height: '300px',
                 marginRight: 30,
             }}
-            onDragOver={(e) => console.log(e)} // Dispatch moveTo
+            onDragOver={() =>
+                dispatch(
+                    setMoveTo({
+                        stackId: lastCard.stackId,
+                        cardId: lastCard.id,
+                        canBePutOn: lastCard.canBePutOn,
+                        canBePutOnHome: lastCard.canBePutOnHome,
+                    }),
+                )
+            } // Dispatch moveTo
             onDrop={() => console.log('DROPPED!')}
         >
             {cardsArray.map(
-                ({ value, cardSuit, isFaceDown, image, canBePutOn, canBePutOnHome, stackId }: CardType, i) => (
+                ({ value, cardSuit, isFaceDown, image, canBePutOn, canBePutOnHome, stackId, id }: CardType, i) => (
                     <Card
                         value={value}
                         cardSuit={cardSuit}
@@ -29,10 +42,11 @@ const Deck = ({ cardsArray }: DeckdProps) => {
                         image={image}
                         key={`${value}${cardSuit}`}
                         isDraggable={cardsArray.length - 1 === i ? true : false}
-                        id={String(i)}
+                        id={id}
                         stackId={stackId}
                         canBePutOn={canBePutOn}
                         canBePutOnHome={canBePutOnHome}
+                        index={i}
                     />
                 ),
             )}

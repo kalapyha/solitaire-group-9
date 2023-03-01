@@ -141,6 +141,12 @@ const tableauSlice = createSlice({
     name: 'tableau',
     initialState: initialState,
     reducers: {
+        setMoveFrom: (state, args) => {
+            state.moveFrom = args.payload;
+        },
+        setMoveTo: (state, args) => {
+            state.moveTo = args.payload;
+        },
         setActiveCard: (state, args) => {
             // Same card click => reset active card
             if (args.payload.id === state.activeCard?.id) {
@@ -243,7 +249,7 @@ const tableauSlice = createSlice({
     },
 });
 
-export const { setActiveCard, resetCards, moveCardToHome } = tableauSlice.actions;
+export const { setActiveCard, resetCards, moveCardToHome, setMoveFrom, setMoveTo } = tableauSlice.actions;
 
 export const activeCard = (state: RootState) => state.cards.activeCard;
 export const deckStack = (state: RootState) => state.cards.deckStack;

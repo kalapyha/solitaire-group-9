@@ -7,7 +7,7 @@ import { CardType } from '../../types';
 import { useSelector } from 'react-redux';
 import { selectPattern } from '../../features/settingsSlice';
 import { useDispatch } from 'react-redux';
-import { setActiveCard, activeCard, moveCardToHome } from '../../features/tableauSlice';
+import { setActiveCard, activeCard, moveCardToHome, setMoveFrom } from '../../features/tableauSlice';
 import { Box, styled } from '@mui/material';
 import './Card.scss';
 
@@ -19,7 +19,11 @@ const StyledBox = styled(Box)(({}) => ({
     marginRight: '20px',
 }));
 
-const Card = (props: CardType): JSX.Element => {
+interface CardProps extends CardType {
+    index?: number | string;
+}
+
+const Card = (props: CardProps): JSX.Element => {
     const imagePattern = useSelector(selectPattern);
     const curActiveCard = useSelector(activeCard);
     const dispatch = useDispatch();
@@ -39,7 +43,7 @@ const Card = (props: CardType): JSX.Element => {
         }
     };
     return props.isFaceDown ? (
-        <StyledBox style={{ transform: `translateY(${props.id}0px)` }}>{renderCardBackPattern()}</StyledBox>
+        <StyledBox style={{ transform: `translateY(${props.index}0px)` }}>{renderCardBackPattern()}</StyledBox>
     ) : (
         <StyledBox
             id={`${props.stackId}-${props.id}`}
@@ -47,8 +51,21 @@ const Card = (props: CardType): JSX.Element => {
             onDoubleClick={() => dispatch(moveCardToHome(props))}
             draggable={props.isDraggable}
             // onDrag={(e) => console.log(e)} // Dispatch moveFrom
-            onDragEnd={() => console.log('handleDragEND')} // Dispatch actual move
-            style={{ transform: `translateY(${props.id}0px)` }}
+            onDrag={() =>
+                dispatch(
+                    setMoveFrom({
+                        stackId: props.stackId,
+                        cardId: props.id,
+                        canBePutOn: props.canBePutOn,
+                        canBePutOnHome: props.canBePutOnHome,
+                    }),
+                )
+            } // Dispatch moveFrom
+            onDragEnd={() => {
+                // dispatch(setMoveFrom({}));
+                // Dispatch actual move HERE
+            }}
+            style={{ transform: `translateY(${props.index}0px)` }}
         >
             <div>{props.image}</div>
         </StyledBox>
