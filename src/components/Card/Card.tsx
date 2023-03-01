@@ -46,20 +46,10 @@ const Card = (props: CardType): JSX.Element => {
             onClick={() => dispatch(setActiveCard({ ...props, image: {} }))}
             onDoubleClick={() => dispatch(moveCardToHome(props))}
             draggable={props.isDraggable}
-            onDrag={(e) => console.log(e)}
-            // className="card"
+            // onDrag={(e) => console.log(e)} // Dispatch moveFrom
+            onDragEnd={() => console.log('handleDragEND')} // Dispatch actual move
             style={{ transform: `translateY(${props.id}0px)` }}
-
-            // style={
-            //     (curActiveCard as CardType).id === props.id
-            //         ? { border: '2px solid yellow', marginTop: '-300px' }
-            //         : props.isFaceDown
-            //         ? {}
-            //         : { paddingTop: '35px' }
-            // }
         >
-            {/* TODO, update with redux active cards state here */}
-            {/* <div className={`card ${isActiveCard ? 'border' : ''}`}>{image}</div> */}
             <div>{props.image}</div>
         </StyledBox>
     );
