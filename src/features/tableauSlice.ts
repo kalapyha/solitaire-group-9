@@ -200,7 +200,7 @@ const tableauSlice = createSlice({
         resetCards: (state) => {
             const newShuffledArray = shuffleArray(deckArray);
             state.deckStack.cards = newShuffledArray.slice(0, 24);
-            // TODO need to
+            // TODO need to reset HOME and deck flipped
             state.tableau1.cards = revealLastCard(
                 newShuffledArray.slice(24, 25).map((card) => {
                     return { ...card, stackId: 1 };

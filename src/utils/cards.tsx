@@ -62,7 +62,7 @@ const deckArray: CardType[] = [
         image: <ClubsAce />,
         id: 'clubs-1',
         stackId: '',
-        canBePutOn: ['hearts-2, diamonds-2'],
+        canBePutOn: ['hearts-2', 'diamonds-2'],
         canBePutOnHome: null,
     },
     {
@@ -72,7 +72,7 @@ const deckArray: CardType[] = [
         image: <Clubs2 />,
         id: 'clubs-2',
         stackId: '',
-        canBePutOn: ['hearts-3, diamonds-3'],
+        canBePutOn: ['hearts-3', 'diamonds-3'],
         canBePutOnHome: 'clubs-1',
     },
     {
@@ -82,7 +82,7 @@ const deckArray: CardType[] = [
         image: <Clubs3 />,
         id: 'clubs-3',
         stackId: '',
-        canBePutOn: ['hearts-4, diamonds-4'],
+        canBePutOn: ['hearts-4', 'diamonds-4'],
         canBePutOnHome: 'clubs-2',
     },
     {
@@ -92,7 +92,7 @@ const deckArray: CardType[] = [
         image: <Clubs4 />,
         id: 'clubs-4',
         stackId: '',
-        canBePutOn: ['hearts-5, diamonds-5'],
+        canBePutOn: ['hearts-5', 'diamonds-5'],
         canBePutOnHome: 'clubs-3',
     },
     {
@@ -102,7 +102,7 @@ const deckArray: CardType[] = [
         image: <Clubs5 />,
         id: 'clubs-5',
         stackId: '',
-        canBePutOn: ['hearts-6, diamonds-6'],
+        canBePutOn: ['hearts-6', 'diamonds-6'],
         canBePutOnHome: 'clubs-4',
     },
     {
@@ -112,7 +112,7 @@ const deckArray: CardType[] = [
         image: <Clubs6 />,
         id: 'clubs-6',
         stackId: '',
-        canBePutOn: ['hearts-7, diamonds-7'],
+        canBePutOn: ['hearts-7', 'diamonds-7'],
         canBePutOnHome: 'clubs-5',
     },
     {
@@ -122,7 +122,7 @@ const deckArray: CardType[] = [
         image: <Clubs7 />,
         id: 'clubs-7',
         stackId: '',
-        canBePutOn: ['hearts-8, diamonds-8'],
+        canBePutOn: ['hearts-8', 'diamonds-8'],
         canBePutOnHome: 'clubs-6',
     },
     {
@@ -132,7 +132,7 @@ const deckArray: CardType[] = [
         image: <Clubs8 />,
         id: 'clubs-8',
         stackId: '',
-        canBePutOn: ['hearts-9, diamonds-9'],
+        canBePutOn: ['hearts-9', 'diamonds-9'],
         canBePutOnHome: 'clubs-7',
     },
     {
@@ -142,7 +142,7 @@ const deckArray: CardType[] = [
         image: <Clubs9 />,
         id: 'clubs-9',
         stackId: '',
-        canBePutOn: ['hearts-10, diamonds-10'],
+        canBePutOn: ['hearts-10', 'diamonds-10'],
         canBePutOnHome: 'clubs-8',
     },
     {
@@ -152,7 +152,7 @@ const deckArray: CardType[] = [
         image: <Clubs10 />,
         id: 'clubs-10',
         stackId: '',
-        canBePutOn: ['hearts-11, diamonds-11'],
+        canBePutOn: ['hearts-11', 'diamonds-11'],
         canBePutOnHome: 'clubs-9',
     },
     {
@@ -162,7 +162,7 @@ const deckArray: CardType[] = [
         image: <ClubsJack />,
         id: 'clubs-11',
         stackId: '',
-        canBePutOn: ['hearts-12, diamonds-12'],
+        canBePutOn: ['hearts-12', 'diamonds-12'],
         canBePutOnHome: 'clubs-10',
     },
     {
@@ -172,7 +172,7 @@ const deckArray: CardType[] = [
         image: <ClubsQueen />,
         id: 'clubs-12',
         stackId: '',
-        canBePutOn: ['hearts-13, diamonds-13'],
+        canBePutOn: ['hearts-13', 'diamonds-13'],
         canBePutOnHome: 'clubs-11',
     },
     {
@@ -193,7 +193,7 @@ const deckArray: CardType[] = [
         image: <DiamondsAce />,
         id: 'diamonds-1',
         stackId: '',
-        canBePutOn: ['clubs-2, spades-2'],
+        canBePutOn: ['clubs-2', 'spades-2'],
         canBePutOnHome: null,
     },
     {
@@ -203,7 +203,7 @@ const deckArray: CardType[] = [
         image: <Diamonds2 />,
         id: 'diamonds-2',
         stackId: '',
-        canBePutOn: ['clubs-3, spades-3'],
+        canBePutOn: ['clubs-3', 'spades-3'],
         canBePutOnHome: 'diamonds-1',
     },
     {
@@ -213,7 +213,7 @@ const deckArray: CardType[] = [
         image: <Diamonds3 />,
         id: 'diamonds-3',
         stackId: '',
-        canBePutOn: ['clubs-4, spades-4'],
+        canBePutOn: ['clubs-4', 'spades-4'],
         canBePutOnHome: 'diamonds-2',
     },
     {
@@ -223,7 +223,7 @@ const deckArray: CardType[] = [
         image: <Diamonds4 />,
         id: 'diamonds-4',
         stackId: '',
-        canBePutOn: ['clubs-5, spades-5'],
+        canBePutOn: ['clubs-5', 'spades-5'],
         canBePutOnHome: 'diamonds-3',
     },
     {
@@ -233,7 +233,7 @@ const deckArray: CardType[] = [
         image: <Diamonds5 />,
         id: 'diamonds-5',
         stackId: '',
-        canBePutOn: ['clubs-6, spades-6'],
+        canBePutOn: ['clubs-6', 'spades-6'],
         canBePutOnHome: 'diamonds-4',
     },
     {
@@ -243,7 +243,7 @@ const deckArray: CardType[] = [
         image: <Diamonds6 />,
         id: 'diamonds-6',
         stackId: '',
-        canBePutOn: ['clubs-7, spades-7'],
+        canBePutOn: ['clubs-7', 'spades-7'],
         canBePutOnHome: 'diamonds-5',
     },
     {
@@ -253,7 +253,7 @@ const deckArray: CardType[] = [
         image: <Diamonds7 />,
         id: 'diamonds-7',
         stackId: '',
-        canBePutOn: ['clubs-8, spades-8'],
+        canBePutOn: ['clubs-8', 'spades-8'],
         canBePutOnHome: 'diamonds-6',
     },
     {
@@ -263,7 +263,7 @@ const deckArray: CardType[] = [
         image: <Diamonds8 />,
         id: 'diamonds-8',
         stackId: '',
-        canBePutOn: ['clubs-9, spades-9'],
+        canBePutOn: ['clubs-9', 'spades-9'],
         canBePutOnHome: 'diamonds-7',
     },
     {
@@ -273,7 +273,7 @@ const deckArray: CardType[] = [
         image: <Diamonds9 />,
         id: 'diamonds-9',
         stackId: '',
-        canBePutOn: ['clubs-10, spades-10'],
+        canBePutOn: ['clubs-10', 'spades-10'],
         canBePutOnHome: 'diamonds-8',
     },
     {
@@ -283,7 +283,7 @@ const deckArray: CardType[] = [
         image: <Diamonds10 />,
         id: 'diamonds-10',
         stackId: '',
-        canBePutOn: ['clubs-11, spades-11'],
+        canBePutOn: ['clubs-11', 'spades-11'],
         canBePutOnHome: 'diamonds-9',
     },
     {
@@ -293,7 +293,7 @@ const deckArray: CardType[] = [
         image: <DiamondsJack />,
         id: 'diamonds-11',
         stackId: '',
-        canBePutOn: ['clubs-12, spades-12'],
+        canBePutOn: ['clubs-12', 'spades-12'],
         canBePutOnHome: 'diamonds-10',
     },
     {
@@ -303,7 +303,7 @@ const deckArray: CardType[] = [
         image: <DiamondsQueen />,
         id: 'diamonds-12',
         stackId: '',
-        canBePutOn: ['clubs-13, spades-13'],
+        canBePutOn: ['clubs-13', 'spades-13'],
         canBePutOnHome: 'diamonds-11',
     },
     {
@@ -324,7 +324,7 @@ const deckArray: CardType[] = [
         image: <HeartsAce />,
         id: 'hearts-1',
         stackId: '',
-        canBePutOn: ['clubs-2, spades-2'],
+        canBePutOn: ['clubs-2', 'spades-2'],
         canBePutOnHome: null,
     },
     {
@@ -334,7 +334,7 @@ const deckArray: CardType[] = [
         image: <Hearts2 />,
         id: 'hearts-2',
         stackId: '',
-        canBePutOn: ['clubs-3, spades-3'],
+        canBePutOn: ['clubs-3', 'spades-3'],
         canBePutOnHome: 'hearts-1',
     },
     {
@@ -344,7 +344,7 @@ const deckArray: CardType[] = [
         image: <Hearts3 />,
         id: 'hearts-3',
         stackId: '',
-        canBePutOn: ['clubs-4, spades-4'],
+        canBePutOn: ['clubs-4', 'spades-4'],
         canBePutOnHome: 'hearts-2',
     },
     {
@@ -354,7 +354,7 @@ const deckArray: CardType[] = [
         image: <Hearts4 />,
         id: 'hearts-4',
         stackId: '',
-        canBePutOn: ['clubs-5, spades-5'],
+        canBePutOn: ['clubs-5', 'spades-5'],
         canBePutOnHome: 'hearts-3',
     },
     {
@@ -364,7 +364,7 @@ const deckArray: CardType[] = [
         image: <Hearts5 />,
         id: 'hearts-5',
         stackId: '',
-        canBePutOn: ['clubs-6, spades-6'],
+        canBePutOn: ['clubs-6', 'spades-6'],
         canBePutOnHome: 'hearts-4',
     },
     {
@@ -374,7 +374,7 @@ const deckArray: CardType[] = [
         image: <Hearts6 />,
         id: 'hearts-6',
         stackId: '',
-        canBePutOn: ['clubs-7, spades-7'],
+        canBePutOn: ['clubs-7', 'spades-7'],
         canBePutOnHome: 'hearts-5',
     },
     {
@@ -384,7 +384,7 @@ const deckArray: CardType[] = [
         image: <Hearts7 />,
         id: 'hearts-7',
         stackId: '',
-        canBePutOn: ['clubs-8, spades-8'],
+        canBePutOn: ['clubs-8', 'spades-8'],
         canBePutOnHome: 'hearts-6',
     },
     {
@@ -394,7 +394,7 @@ const deckArray: CardType[] = [
         image: <Hearts8 />,
         id: 'hearts-8',
         stackId: '',
-        canBePutOn: ['clubs-9, spades-9'],
+        canBePutOn: ['clubs-9', 'spades-9'],
         canBePutOnHome: 'hearts-7',
     },
     {
@@ -404,7 +404,7 @@ const deckArray: CardType[] = [
         image: <Hearts9 />,
         id: 'hearts-9',
         stackId: '',
-        canBePutOn: ['clubs-10, spades-10'],
+        canBePutOn: ['clubs-10', 'spades-10'],
         canBePutOnHome: 'hearts-8',
     },
     {
@@ -414,7 +414,7 @@ const deckArray: CardType[] = [
         image: <Hearts10 />,
         id: 'hearts-10',
         stackId: '',
-        canBePutOn: ['clubs-11, spades-11'],
+        canBePutOn: ['clubs-11', 'spades-11'],
         canBePutOnHome: 'hearts-9',
     },
     {
@@ -424,7 +424,7 @@ const deckArray: CardType[] = [
         image: <HeartsJack />,
         id: 'hearts-11',
         stackId: '',
-        canBePutOn: ['clubs-12, spades-12'],
+        canBePutOn: ['clubs-12', 'spades-12'],
         canBePutOnHome: 'hearts-10',
     },
     {
@@ -434,7 +434,7 @@ const deckArray: CardType[] = [
         image: <HeartsQueen />,
         id: 'hearts-12',
         stackId: '',
-        canBePutOn: ['clubs-13, spades-13'],
+        canBePutOn: ['clubs-13', 'spades-13'],
         canBePutOnHome: 'hearts-11',
     },
     {
@@ -455,7 +455,7 @@ const deckArray: CardType[] = [
         image: <SpadesAce />,
         id: 'spades-1',
         stackId: '',
-        canBePutOn: ['hearts-2, diamonds-2'],
+        canBePutOn: ['hearts-2', 'diamonds-2'],
         canBePutOnHome: null,
     },
     {
@@ -465,7 +465,7 @@ const deckArray: CardType[] = [
         image: <Spades2 />,
         id: 'spades-2',
         stackId: '',
-        canBePutOn: ['hearts-3, diamonds-3'],
+        canBePutOn: ['hearts-3', 'diamonds-3'],
         canBePutOnHome: 'spades-1',
     },
     {
@@ -475,7 +475,7 @@ const deckArray: CardType[] = [
         image: <Spades3 />,
         id: 'spades-3',
         stackId: '',
-        canBePutOn: ['hearts-4, diamonds-4'],
+        canBePutOn: ['hearts-4', 'diamonds-4'],
         canBePutOnHome: 'spades-2',
     },
     {
@@ -485,7 +485,7 @@ const deckArray: CardType[] = [
         image: <Spades4 />,
         id: 'spades-4',
         stackId: '',
-        canBePutOn: ['hearts-5, diamonds-5'],
+        canBePutOn: ['hearts-5', 'diamonds-5'],
         canBePutOnHome: 'spades-3',
     },
     {
@@ -495,7 +495,7 @@ const deckArray: CardType[] = [
         image: <Spades5 />,
         id: 'spades-5',
         stackId: '',
-        canBePutOn: ['hearts-6, diamonds-6'],
+        canBePutOn: ['hearts-6', 'diamonds-6'],
         canBePutOnHome: 'spades-4',
     },
     {
@@ -505,7 +505,7 @@ const deckArray: CardType[] = [
         image: <Spades6 />,
         id: 'spades-6',
         stackId: '',
-        canBePutOn: ['hearts-7, diamonds-7'],
+        canBePutOn: ['hearts-7', 'diamonds-7'],
         canBePutOnHome: 'spades-5',
     },
     {
@@ -515,7 +515,7 @@ const deckArray: CardType[] = [
         image: <Spades7 />,
         id: 'spades-7',
         stackId: '',
-        canBePutOn: ['hearts-8, diamonds-8'],
+        canBePutOn: ['hearts-8', 'diamonds-8'],
         canBePutOnHome: 'spades-6',
     },
     {
@@ -525,7 +525,7 @@ const deckArray: CardType[] = [
         image: <Spades8 />,
         id: 'spades-8',
         stackId: '',
-        canBePutOn: ['hearts-9, diamonds-9'],
+        canBePutOn: ['hearts-9', 'diamonds-9'],
         canBePutOnHome: 'spades-7',
     },
     {
@@ -535,7 +535,7 @@ const deckArray: CardType[] = [
         image: <Spades9 />,
         id: 'spades-9',
         stackId: '',
-        canBePutOn: ['hearts-10, diamonds-10'],
+        canBePutOn: ['hearts-10', 'diamonds-10'],
         canBePutOnHome: 'spades-8',
     },
     {
@@ -545,7 +545,7 @@ const deckArray: CardType[] = [
         image: <Spades10 />,
         id: 'spades-10',
         stackId: '',
-        canBePutOn: ['hearts-11, diamonds-11'],
+        canBePutOn: ['hearts-11', 'diamonds-11'],
         canBePutOnHome: 'spades-9',
     },
     {
@@ -555,7 +555,7 @@ const deckArray: CardType[] = [
         image: <SpadesJack />,
         id: 'spades-11',
         stackId: '',
-        canBePutOn: ['hearts-12, diamonds-12'],
+        canBePutOn: ['hearts-12', 'diamonds-12'],
         canBePutOnHome: 'spades-10',
     },
     {
@@ -565,7 +565,7 @@ const deckArray: CardType[] = [
         image: <SpadesQueen />,
         id: 'spades-12',
         stackId: '',
-        canBePutOn: ['hearts-13, diamonds-13'],
+        canBePutOn: ['hearts-13', 'diamonds-13'],
         canBePutOnHome: 'spades-11',
     },
     {
