@@ -7,7 +7,14 @@ import { CardType } from '../../types';
 import { useSelector } from 'react-redux';
 import { selectPattern } from '../../features/settingsSlice';
 import { useDispatch } from 'react-redux';
-import { setActiveCard, activeCard, moveCardToHome, setMoveFrom } from '../../features/tableauSlice';
+import {
+    setActiveCard,
+    activeCard,
+    moveCardToHome,
+    setMoveFrom,
+    makeMove,
+    setMoveTo,
+} from '../../features/tableauSlice';
 import { Box, styled } from '@mui/material';
 import './Card.scss';
 
@@ -50,8 +57,7 @@ const Card = (props: CardProps): JSX.Element => {
             onClick={() => dispatch(setActiveCard({ ...props, image: {} }))}
             onDoubleClick={() => dispatch(moveCardToHome(props))}
             draggable={props.isDraggable}
-            // onDrag={(e) => console.log(e)} // Dispatch moveFrom
-            onDrag={() =>
+            onDragStart={() =>
                 dispatch(
                     setMoveFrom({
                         stackId: props.stackId,
@@ -60,12 +66,17 @@ const Card = (props: CardProps): JSX.Element => {
                         canBePutOnHome: props.canBePutOnHome,
                     }),
                 )
-            } // Dispatch moveFrom
-            onDragEnd={() => {
-                // dispatch(setMoveFrom({}));
-                // Dispatch actual move HERE
+            }
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => {
+                e.preventDefault();
+                dispatch(makeMove());
             }}
-            style={{ transform: `translateY(${props.index}0px)` }}
+            style={{
+                transform: !props.isDraggable
+                    ? `translateY(${props.index}0px)`
+                    : `translateY(${Number(props.index) * 10 + 28}px)`,
+            }}
         >
             <div>{props.image}</div>
         </StyledBox>

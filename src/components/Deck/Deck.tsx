@@ -3,7 +3,7 @@ import { CardType } from '../../types';
 import Card from '../Card/Card';
 import Box from '@mui/material/Box';
 import { useDispatch } from 'react-redux';
-import { setMoveTo } from '../../features/tableauSlice';
+import { setMoveTo, makeMove } from '../../features/tableauSlice';
 
 type DeckdProps = {
     cardsArray: CardType[];
@@ -30,8 +30,11 @@ const Deck = ({ cardsArray }: DeckdProps) => {
                         canBePutOnHome: lastCard.canBePutOnHome,
                     }),
                 )
-            } // Dispatch moveTo
-            onDrop={() => console.log('DROPPED!')}
+            }
+            // onDrop={(e) => {
+            //     e.preventDefault();
+            //     console.log('DROPPED!');
+            // }}
         >
             {cardsArray.map(
                 ({ value, cardSuit, isFaceDown, image, canBePutOn, canBePutOnHome, stackId, id }: CardType, i) => (

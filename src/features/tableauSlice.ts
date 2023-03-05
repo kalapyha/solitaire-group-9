@@ -147,6 +147,38 @@ const tableauSlice = createSlice({
         setMoveTo: (state, args) => {
             state.moveTo = args.payload;
         },
+        makeMove: (state) => {
+            if (state.moveFrom?.cardId && state.moveTo?.cardId) {
+                if (state.moveFrom.canBePutOn.includes(state.moveTo.cardId)) {
+                    // make move
+                    const cardToMove = state[`tableau${state.moveFrom.stackId}`].cards.slice(-1); // one last card
+                    state[`tableau${state.moveFrom.stackId}`].cards = revealLastCard(
+                        state[`tableau${state.moveFrom.stackId}`].cards.slice(
+                            0,
+                            state[`tableau${state.moveFrom.stackId}`].cards.length - 1,
+                        ),
+                    );
+
+                    state[`tableau${state.moveTo.stackId}`].cards = [
+                        ...state[`tableau${state.moveTo.stackId}`].cards,
+                        ...cardToMove,
+                    ];
+
+                    state[`tableau${state.moveTo.stackId}`].cards = state[`tableau${state.moveTo.stackId}`].cards.map(
+                        (card) => ({ ...card, stackId: state.moveTo.stackId }),
+                    );
+                    console.log('MOVE happened ');
+
+                    state.moveTo = {};
+                    state.moveFrom = {};
+                } else {
+                    console.log('MOVE NOT happened ');
+                    // reset moveTo and moveFrom
+                    state.moveTo = {};
+                    state.moveFrom = {};
+                }
+            }
+        },
         setActiveCard: (state, args) => {
             // Same card click => reset active card
             if (args.payload.id === state.activeCard?.id) {
@@ -249,7 +281,7 @@ const tableauSlice = createSlice({
     },
 });
 
-export const { setActiveCard, resetCards, moveCardToHome, setMoveFrom, setMoveTo } = tableauSlice.actions;
+export const { setActiveCard, resetCards, moveCardToHome, setMoveFrom, setMoveTo, makeMove } = tableauSlice.actions;
 
 export const activeCard = (state: RootState) => state.cards.activeCard;
 export const deckStack = (state: RootState) => state.cards.deckStack;
