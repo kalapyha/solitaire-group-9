@@ -7,14 +7,7 @@ import { CardType } from '../../types';
 import { useSelector } from 'react-redux';
 import { selectPattern } from '../../features/settingsSlice';
 import { useDispatch } from 'react-redux';
-import {
-    setActiveCard,
-    activeCard,
-    moveCardToHome,
-    setMoveFrom,
-    makeMove,
-    setMoveTo,
-} from '../../features/tableauSlice';
+import { moveCardToHome, setMoveFrom, makeMove } from '../../features/tableauSlice';
 import { Box, styled } from '@mui/material';
 import './Card.scss';
 
@@ -32,7 +25,6 @@ interface CardProps extends CardType {
 
 const Card = (props: CardProps): JSX.Element => {
     const imagePattern = useSelector(selectPattern);
-    const curActiveCard = useSelector(activeCard);
     const dispatch = useDispatch();
     const renderCardBackPattern = () => {
         switch (imagePattern) {
@@ -54,8 +46,17 @@ const Card = (props: CardProps): JSX.Element => {
     ) : (
         <StyledBox
             id={`${props.stackId}-${props.id}`}
-            onClick={() => dispatch(setActiveCard({ ...props, image: {} }))}
-            onDoubleClick={() => dispatch(moveCardToHome(props))}
+            onDoubleClick={() =>
+                dispatch(
+                    moveCardToHome({
+                        cardSuit: props.cardSuit,
+                        value: props.value,
+                        stackId: props.stackId,
+                        cardId: props.id,
+                        canBePutOnHome: props.canBePutOnHome,
+                    }),
+                )
+            }
             draggable={props.isDraggable}
             onDragStart={() =>
                 dispatch(

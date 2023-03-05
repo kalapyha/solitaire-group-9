@@ -1,8 +1,9 @@
 import React from 'react';
 import { Box, Card as MUICard } from '@mui/material';
 import Card from '../../Card/Card';
-import Stack from '@mui/material/Stack';
 import { styled, Typography } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { setMoveTo } from '../../../features/tableauSlice';
 
 const StyledCard = styled(MUICard)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -26,9 +27,27 @@ type HomeCardProps = {
 
 const HomeCard = ({ showHomeBorder = false, suitImage = '', cardsArray }: HomeCardProps) => {
     // @ts-ignore
+    const dispatch = useDispatch();
+    const lastCard = cardsArray[cardsArray.length - 1];
+
     return cardsArray?.length ? (
-        <Box style={{ position: 'relative', width: '200px', height: '300px', marginRight: 30 }}>
-            {/* TODO Stack is causing some issues with dnd, need to be updated */}
+        <Box
+            style={{ position: 'relative', width: '200px', height: '300px', marginRight: 30 }}
+            onDragOver={() =>
+                dispatch(
+                    setMoveTo({
+                        // @ts-ignore
+                        stackId: lastCard.stackId,
+                        // @ts-ignore
+                        cardId: lastCard.id,
+                        // @ts-ignore
+                        canBePutOn: lastCard.canBePutOn,
+                        // @ts-ignore
+                        canBePutOnHome: lastCard.canBePutOnHome,
+                    }),
+                )
+            }
+        >
             {cardsArray.map(({ value, cardSuit, isFaceDown, image, canBePutOn, canBePutOnHome, stackId }, i) => (
                 <Card
                     value={value}
