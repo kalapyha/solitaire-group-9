@@ -7,7 +7,7 @@ import { CardType } from '../../types';
 import { useSelector } from 'react-redux';
 import { selectPattern } from '../../features/settingsSlice';
 import { useDispatch } from 'react-redux';
-import { moveCardToHome, setMoveFrom, makeMove } from '../../features/tableauSlice';
+import { moveCardToHome, setMoveFrom, makeMove, moveToFlipped } from '../../features/tableauSlice';
 import { Box, styled } from '@mui/material';
 import './Card.scss';
 
@@ -47,7 +47,7 @@ const Card = (props: CardProps): JSX.Element => {
     if (props.isPlaceholder) {
         return (
             <StyledBox
-                onDragOver={(e) => e.preventDefault()} // nned to be here
+                onDragOver={(e) => e.preventDefault()} // need to be here
                 onDrop={(e) => {
                     e.preventDefault();
                     dispatch(makeMove());
@@ -58,6 +58,13 @@ const Card = (props: CardProps): JSX.Element => {
     }
     return props.isFaceDown ? (
         <StyledBox
+            onClick={() => {
+                if (props.stackId === 8) {
+                    // make move to isFlipped
+                    dispatch(moveToFlipped());
+                }
+                console.log(props);
+            }}
             style={{ transform: props.smallShift ? `translateY(${props.index}px)` : `translateY(${props.index}0px)` }}
         >
             {renderCardBackPattern()}

@@ -102,12 +102,17 @@ const initialState = {
             }),
         ),
     },
-    deckStack: {
+    tableau8: {
         id: 8,
         title: 'deck stack',
-        cards: shuffledArray.slice(0, 24),
+        cards: shuffledArray.slice(0, 24).map((card) => {
+            return {
+                ...card,
+                stackId: 8,
+            };
+        }),
     },
-    deckStackFlipped: {
+    tableau9: {
         id: 9,
         title: 'deck stack flipped',
         cards: [],
@@ -146,6 +151,12 @@ const tableauSlice = createSlice({
         },
         setMoveTo: (state, args) => {
             state.moveTo = args.payload;
+        },
+        moveToFlipped: (state) => {
+            const cardToMove = state.tableau8.cards.slice(-1)[0];
+            state.tableau8.cards = state.tableau8.cards.slice(0, state.tableau8.cards.length - 1);
+
+            state.tableau9.cards = [...state.tableau9.cards, { ...cardToMove, isFaceDown: false, stackId: 9 }];
         },
         makeMove: (state) => {
             if (state.moveFrom?.cardId && state.moveTo?.cardId) {
@@ -298,7 +309,7 @@ const tableauSlice = createSlice({
         },
         resetCards: (state) => {
             const newShuffledArray = shuffleArray(deckArray);
-            state.deckStack.cards = newShuffledArray.slice(0, 24);
+            state.tableau8.cards = newShuffledArray.slice(0, 24);
             // TODO need to reset HOME and deck flipped
             state.tableau1.cards = revealLastCard(
                 newShuffledArray.slice(24, 25).map((card) => {
@@ -340,11 +351,11 @@ const tableauSlice = createSlice({
     },
 });
 
-export const { resetCards, moveCardToHome, setMoveFrom, setMoveTo, makeMove } = tableauSlice.actions;
+export const { resetCards, moveCardToHome, setMoveFrom, setMoveTo, makeMove, moveToFlipped } = tableauSlice.actions;
 
 export const activeCard = (state: RootState) => state.cards.activeCard;
-export const deckStack = (state: RootState) => state.cards.deckStack;
-export const deckStackFlipped = (state: RootState) => state.cards.deckStackFlipped;
+export const deckStack = (state: RootState) => state.cards.tableau8;
+export const deckStackFlipped = (state: RootState) => state.cards.tableau9;
 export const tableau1 = (state: RootState) => state.cards.tableau1;
 export const tableau2 = (state: RootState) => state.cards.tableau2;
 export const tableau3 = (state: RootState) => state.cards.tableau3;

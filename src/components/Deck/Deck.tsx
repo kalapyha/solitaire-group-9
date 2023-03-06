@@ -17,7 +17,6 @@ const StyledCard = styled(MUICard)(({ theme }) => ({
 
 type DeckdProps = {
     cardsArray: CardType[];
-    autoReveal?: boolean;
     allowEmpty?: boolean;
     tableauId?: number;
     smallShift?: boolean;
@@ -27,6 +26,7 @@ type DeckdProps = {
 const Deck = ({ cardsArray, allowEmpty = false, tableauId, smallShift, styleOverride }: DeckdProps) => {
     const dispatch = useDispatch();
     const lastCard = cardsArray[cardsArray.length - 1];
+
     if (allowEmpty && !cardsArray.length) {
         return (
             <Box
@@ -63,7 +63,7 @@ const Deck = ({ cardsArray, allowEmpty = false, tableauId, smallShift, styleOver
                 marginRight: 30,
                 ...styleOverride,
             }}
-            onDragOver={() =>
+            onDragOver={() => {
                 dispatch(
                     setMoveTo({
                         stackId: lastCard.stackId,
@@ -71,8 +71,8 @@ const Deck = ({ cardsArray, allowEmpty = false, tableauId, smallShift, styleOver
                         canBePutOn: lastCard.canBePutOn,
                         canBePutOnHome: lastCard.canBePutOnHome,
                     }),
-                )
-            }
+                );
+            }}
         >
             {cardsArray.map(
                 ({ value, cardSuit, isFaceDown, image, canBePutOn, canBePutOnHome, stackId, id }: CardType, i) => (

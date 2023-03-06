@@ -52,7 +52,7 @@ const Board = (): JSX.Element => {
                     justifyContent="flex-start"
                     alignContent="center"
                 >
-                    <Deck cardsArray={cards} autoReveal={false} smallShift styleOverride={{ marginTop: '30px' }} />
+                    <Deck cardsArray={cards} smallShift styleOverride={{ marginTop: '30px' }} />
                 </Grid>
                 <Grid
                     item
