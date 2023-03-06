@@ -178,7 +178,30 @@ const tableauSlice = createSlice({
                     state.moveFrom = {};
                 }
             }
-            if (state.moveFrom?.cardId && state.moveTo?.isFlipped) {
+
+            // Move King on empty field
+            if (state.moveFrom?.cardId && state.moveTo?.moveOnEmptyTableau) {
+                if (state.moveFrom.cardId.includes('13')) {
+                    // make move
+                    const cardToMove = state[`tableau${state.moveFrom.stackId}`].cards.slice(-1); // one last card
+                    state[`tableau${state.moveFrom.stackId}`].cards = revealLastCard(
+                        state[`tableau${state.moveFrom.stackId}`].cards.slice(
+                            0,
+                            state[`tableau${state.moveFrom.stackId}`].cards.length - 1,
+                        ),
+                    );
+
+                    state[`tableau${state.moveTo.stackId}`].cards = [...cardToMove];
+                    state[`tableau${state.moveTo.stackId}`].cards = state[`tableau${state.moveTo.stackId}`].cards.map(
+                        (card) => ({ ...card, stackId: state.moveTo.stackId }),
+                    );
+                    console.log('MOVE happened ');
+                } else {
+                    console.log('MOVE NOT happened ');
+                    // reset moveTo and moveFrom
+                    state.moveTo = {};
+                    state.moveFrom = {};
+                }
             }
         },
         moveCardToHome: (state, args) => {
@@ -321,6 +344,7 @@ export const { resetCards, moveCardToHome, setMoveFrom, setMoveTo, makeMove } = 
 
 export const activeCard = (state: RootState) => state.cards.activeCard;
 export const deckStack = (state: RootState) => state.cards.deckStack;
+export const deckStackFlipped = (state: RootState) => state.cards.deckStackFlipped;
 export const tableau1 = (state: RootState) => state.cards.tableau1;
 export const tableau2 = (state: RootState) => state.cards.tableau2;
 export const tableau3 = (state: RootState) => state.cards.tableau3;

@@ -6,6 +6,7 @@ import Deck from '../Deck/Deck';
 import { useSelector } from 'react-redux';
 import {
     deckStack,
+    deckStackFlipped,
     tableau1,
     tableau2,
     tableau3,
@@ -21,6 +22,7 @@ import {
 
 const Board = (): JSX.Element => {
     const { cards } = useSelector(deckStack);
+    const flippedCards = useSelector(deckStackFlipped).cards;
     const cards1 = useSelector(tableau1);
     const cards2 = useSelector(tableau2);
     const cards3 = useSelector(tableau3);
@@ -46,29 +48,30 @@ const Board = (): JSX.Element => {
                     xs={2}
                     display="flex"
                     flexDirection="row"
-                    alignItems="center"
+                    alignItems="flex-start"
                     justifyContent="flex-start"
                     alignContent="center"
                 >
-                    <Deck cardsArray={cards} autoReveal={false} />
+                    <Deck cardsArray={cards} autoReveal={false} smallShift styleOverride={{ marginTop: '30px' }} />
                 </Grid>
                 <Grid
                     item
                     xs={2}
                     display="flex"
                     flexDirection="row"
-                    alignItems="center"
+                    alignItems="flex-start"
                     justifyContent="flex-start"
                     alignContent="center"
-                    style={{ border: '2px solid red' }}
-                ></Grid>
+                >
+                    <Deck cardsArray={flippedCards} allowEmpty styleOverride={{ marginTop: 0 }} />
+                </Grid>
 
                 <Grid
                     item
                     xs={8}
                     display="flex"
                     flexDirection="row"
-                    alignItems="center"
+                    alignItems="flex-start"
                     justifyContent="flex-end"
                     alignContent="center"
                     gap={3}

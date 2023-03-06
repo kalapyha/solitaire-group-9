@@ -20,9 +20,11 @@ type DeckdProps = {
     autoReveal?: boolean;
     allowEmpty?: boolean;
     tableauId?: number;
+    smallShift?: boolean;
+    styleOverride?: React.CSSProperties;
 };
 
-const Deck = ({ cardsArray, allowEmpty = false, tableauId }: DeckdProps) => {
+const Deck = ({ cardsArray, allowEmpty = false, tableauId, smallShift, styleOverride }: DeckdProps) => {
     const dispatch = useDispatch();
     const lastCard = cardsArray[cardsArray.length - 1];
     if (allowEmpty && !cardsArray.length) {
@@ -32,18 +34,23 @@ const Deck = ({ cardsArray, allowEmpty = false, tableauId }: DeckdProps) => {
                     position: 'relative',
                     width: '200px',
                     height: '300px',
-                    marginRight: 30,
+                    marginRight: 45,
+                    marginTop: -40,
+                    ...styleOverride,
                 }}
                 onDragOver={() => {
                     dispatch(
                         setMoveTo({
                             stackId: tableauId,
-                            isFlipped: true,
+                            moveOnEmptyTableau: true,
                         }),
                     );
                 }}
             >
-                <StyledCard />
+                <StyledCard>
+                    {/* @ts-ignore */}
+                    <Card isPlaceholder />
+                </StyledCard>
             </Box>
         );
     }
@@ -54,6 +61,7 @@ const Deck = ({ cardsArray, allowEmpty = false, tableauId }: DeckdProps) => {
                 width: '200px',
                 height: '300px',
                 marginRight: 30,
+                ...styleOverride,
             }}
             onDragOver={() =>
                 dispatch(
@@ -80,6 +88,7 @@ const Deck = ({ cardsArray, allowEmpty = false, tableauId }: DeckdProps) => {
                         canBePutOn={canBePutOn}
                         canBePutOnHome={canBePutOnHome}
                         index={i}
+                        smallShift={smallShift}
                     />
                 ),
             )}

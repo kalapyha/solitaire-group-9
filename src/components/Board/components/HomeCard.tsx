@@ -32,7 +32,7 @@ const HomeCard = ({ showHomeBorder = false, suitImage = '', cardsArray }: HomeCa
 
     return cardsArray?.length ? (
         <Box
-            style={{ position: 'relative', width: '200px', height: '300px', marginRight: 30 }}
+            style={{ position: 'relative', width: '200px', height: '300px', marginRight: 30, marginTop: 45 }}
             onDragOver={() =>
                 dispatch(
                     setMoveTo({

@@ -21,6 +21,8 @@ const StyledBox = styled(Box)(({}) => ({
 
 interface CardProps extends CardType {
     index?: number | string;
+    isPlaceholder?: boolean;
+    smallShift?: boolean;
 }
 
 const Card = (props: CardProps): JSX.Element => {
@@ -41,8 +43,25 @@ const Card = (props: CardProps): JSX.Element => {
                 return <Blue />;
         }
     };
+
+    if (props.isPlaceholder) {
+        return (
+            <StyledBox
+                onDragOver={(e) => e.preventDefault()} // nned to be here
+                onDrop={(e) => {
+                    e.preventDefault();
+                    dispatch(makeMove());
+                }}
+                style={{ width: '100%', height: '100%', margin: 0 }}
+            ></StyledBox>
+        );
+    }
     return props.isFaceDown ? (
-        <StyledBox style={{ transform: `translateY(${props.index}0px)` }}>{renderCardBackPattern()}</StyledBox>
+        <StyledBox
+            style={{ transform: props.smallShift ? `translateY(${props.index}px)` : `translateY(${props.index}0px)` }}
+        >
+            {renderCardBackPattern()}
+        </StyledBox>
     ) : (
         <StyledBox
             id={`${props.stackId}-${props.id}`}
@@ -73,10 +92,13 @@ const Card = (props: CardProps): JSX.Element => {
                 e.preventDefault();
                 dispatch(makeMove());
             }}
+            // style={{
+            //     transform: !props.isDraggable
+            //         ? `translateY(${props.index}0px)`
+            //         : `translateY(${Number(props.index) * 10 + 28}px)`,
+            // }}
             style={{
-                transform: !props.isDraggable
-                    ? `translateY(${props.index}0px)`
-                    : `translateY(${Number(props.index) * 10 + 28}px)`,
+                transform: `translateY(${Number(props.index) * 10 + 10}px)`,
             }}
         >
             <div>{props.image}</div>
