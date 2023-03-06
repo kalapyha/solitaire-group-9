@@ -178,6 +178,8 @@ const tableauSlice = createSlice({
                     state.moveFrom = {};
                 }
             }
+            if (state.moveFrom?.cardId && state.moveTo?.isFlipped) {
+            }
         },
         moveCardToHome: (state, args) => {
             // Move Ace to home
@@ -211,7 +213,10 @@ const tableauSlice = createSlice({
                 const cardToMove = state[`tableau${args.payload.stackId}`].cards.slice(-1)[0];
                 switch (args.payload.cardSuit) {
                     case '♥':
-                        if (state.homeHearts.cards.includes(args.payload.canBePutOnHome)) {
+                        if (
+                            state.homeHearts.cards[state.homeHearts.cards.length - 1]?.id ===
+                            args.payload.canBePutOnHome
+                        ) {
                             state[`tableau${args.payload.stackId}`].cards = revealLastCard(
                                 state[`tableau${args.payload.stackId}`].cards.slice(
                                     0,
@@ -222,7 +227,10 @@ const tableauSlice = createSlice({
                         }
                         break;
                     case '♦':
-                        if (state.homeHearts.cards.includes(args.payload.canBePutOnHome)) {
+                        if (
+                            state.homeDiamonds.cards[state.homeDiamonds.cards.length - 1]?.id ===
+                            args.payload.canBePutOnHome
+                        ) {
                             state[`tableau${args.payload.stackId}`].cards = revealLastCard(
                                 state[`tableau${args.payload.stackId}`].cards.slice(
                                     0,
@@ -233,7 +241,9 @@ const tableauSlice = createSlice({
                         }
                         break;
                     case '♣':
-                        if (state.homeHearts.cards.includes(args.payload.canBePutOnHome)) {
+                        if (
+                            state.homeClubs.cards[state.homeClubs.cards.length - 1]?.id === args.payload.canBePutOnHome
+                        ) {
                             state[`tableau${args.payload.stackId}`].cards = revealLastCard(
                                 state[`tableau${args.payload.stackId}`].cards.slice(
                                     0,
@@ -244,7 +254,10 @@ const tableauSlice = createSlice({
                         }
                         break;
                     case '♠':
-                        if (state.homeHearts.cards.includes(args.payload.canBePutOnHome)) {
+                        if (
+                            state.homeSpades.cards[state.homeSpades.cards.length - 1]?.id ===
+                            args.payload.canBePutOnHome
+                        ) {
                             state[`tableau${args.payload.stackId}`].cards = revealLastCard(
                                 state[`tableau${args.payload.stackId}`].cards.slice(
                                     0,
@@ -258,7 +271,6 @@ const tableauSlice = createSlice({
                     default:
                         break;
                 } // Logic for other cards
-                console.log('arrr', args.payload);
             }
         },
         resetCards: (state) => {
