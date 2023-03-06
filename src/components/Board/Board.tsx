@@ -62,8 +62,9 @@ const Board = (): JSX.Element => {
                     alignItems="flex-start"
                     justifyContent="flex-start"
                     alignContent="center"
+                    mt={4}
                 >
-                    <Deck cardsArray={flippedCards} allowEmpty styleOverride={{ marginTop: 0 }} />
+                    <Deck cardsArray={flippedCards} allowEmpty />
                 </Grid>
 
                 <Grid
