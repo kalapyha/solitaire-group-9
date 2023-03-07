@@ -6,6 +6,7 @@ import Deck from '../Deck/Deck';
 import { useSelector } from 'react-redux';
 import {
     deckStack,
+    deckStackFlipped,
     tableau1,
     tableau2,
     tableau3,
@@ -21,6 +22,7 @@ import {
 
 const Board = (): JSX.Element => {
     const { cards } = useSelector(deckStack);
+    const flippedCards = useSelector(deckStackFlipped).cards;
     const cards1 = useSelector(tableau1);
     const cards2 = useSelector(tableau2);
     const cards3 = useSelector(tableau3);
@@ -43,21 +45,34 @@ const Board = (): JSX.Element => {
             <Grid container spacing={2} p={3} height="100vh">
                 <Grid
                     item
-                    xs={4}
+                    xs={2}
                     display="flex"
                     flexDirection="row"
-                    alignItems="center"
+                    alignItems="flex-start"
                     justifyContent="flex-start"
                     alignContent="center"
                 >
-                    <Deck cardsArray={cards} autoReveal={false} />
+                    <Deck cardsArray={cards} smallShift styleOverride={{ marginTop: '30px' }} />
                 </Grid>
+                <Grid
+                    item
+                    xs={2}
+                    display="flex"
+                    flexDirection="row"
+                    alignItems="flex-start"
+                    justifyContent="flex-start"
+                    alignContent="center"
+                    mt={4}
+                >
+                    <Deck cardsArray={flippedCards} allowEmpty />
+                </Grid>
+
                 <Grid
                     item
                     xs={8}
                     display="flex"
                     flexDirection="row"
-                    alignItems="center"
+                    alignItems="flex-start"
                     justifyContent="flex-end"
                     alignContent="center"
                     gap={3}
@@ -77,13 +92,13 @@ const Board = (): JSX.Element => {
                     alignContent="center"
                     gap={4.5}
                 >
-                    <Deck cardsArray={cards1.cards} />
-                    <Deck cardsArray={cards2.cards} />
-                    <Deck cardsArray={cards3.cards} />
-                    <Deck cardsArray={cards4.cards} />
-                    <Deck cardsArray={cards5.cards} />
-                    <Deck cardsArray={cards6.cards} />
-                    <Deck cardsArray={cards7.cards} />
+                    <Deck cardsArray={cards1.cards} allowEmpty tableauId={1} />
+                    <Deck cardsArray={cards2.cards} allowEmpty tableauId={2} />
+                    <Deck cardsArray={cards3.cards} allowEmpty tableauId={3} />
+                    <Deck cardsArray={cards4.cards} allowEmpty tableauId={4} />
+                    <Deck cardsArray={cards5.cards} allowEmpty />
+                    <Deck cardsArray={cards6.cards} allowEmpty />
+                    <Deck cardsArray={cards7.cards} allowEmpty />
                 </Grid>
             </Grid>
         </Box>

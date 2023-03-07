@@ -7,12 +7,26 @@ import { CardType } from '../../types';
 import { useSelector } from 'react-redux';
 import { selectPattern } from '../../features/settingsSlice';
 import { useDispatch } from 'react-redux';
-import { setActiveCard, activeCard, moveCardToHome } from '../../features/tableauSlice';
+import { moveCardToHome, setMoveFrom, makeMove, moveToFlipped } from '../../features/tableauSlice';
+import { Box, styled } from '@mui/material';
 import './Card.scss';
 
-const Card = (props: CardType): JSX.Element => {
+const StyledBox = styled(Box)(({}) => ({
+    cursor: 'grab',
+    position: 'absolute',
+    bottom: 0,
+    transformOrigin: 'bottom center',
+    marginRight: '20px',
+}));
+
+interface CardProps extends CardType {
+    index?: number | string;
+    isPlaceholder?: boolean;
+    smallShift?: boolean;
+}
+
+const Card = (props: CardProps): JSX.Element => {
     const imagePattern = useSelector(selectPattern);
-    const curActiveCard = useSelector(activeCard);
     const dispatch = useDispatch();
     const renderCardBackPattern = () => {
         switch (imagePattern) {
@@ -29,27 +43,73 @@ const Card = (props: CardType): JSX.Element => {
                 return <Blue />;
         }
     };
+
+    if (props.isPlaceholder) {
+        return (
+            <StyledBox
+                onDragOver={(e) => e.preventDefault()} // need to be here
+                onDrop={(e) => {
+                    e.preventDefault();
+                    dispatch(makeMove());
+                }}
+                style={{ width: '100%', height: '100%', margin: 0 }}
+            ></StyledBox>
+        );
+    }
     return props.isFaceDown ? (
-        renderCardBackPattern()
-    ) : (
-        <div
-            id={`${props.stackId}-${props.id}`}
-            onClick={() => dispatch(setActiveCard({ ...props, image: {} }))}
-            onDoubleClick={() => dispatch(moveCardToHome(props))}
-            draggable={props.isDraggable}
-            onDrag={(e) => console.log(e)}
-            style={
-                (curActiveCard as CardType).id === props.id
-                    ? { border: '2px solid yellow', marginTop: '-300px' }
-                    : props.isFaceDown
-                    ? {}
-                    : { paddingTop: '35px' }
-            }
+        <StyledBox
+            onClick={() => {
+                if (props.stackId === 8) {
+                    // make move to isFlipped
+                    dispatch(moveToFlipped());
+                }
+                console.log(props);
+            }}
+            style={{ transform: props.smallShift ? `translateY(${props.index}px)` : `translateY(${props.index}0px)` }}
         >
-            {/* TODO, update with redux active cards state here */}
-            {/* <div className={`card ${isActiveCard ? 'border' : ''}`}>{image}</div> */}
+            {renderCardBackPattern()}
+        </StyledBox>
+    ) : (
+        <StyledBox
+            id={`${props.stackId}-${props.id}`}
+            onDoubleClick={() =>
+                dispatch(
+                    moveCardToHome({
+                        cardSuit: props.cardSuit,
+                        value: props.value,
+                        stackId: props.stackId,
+                        cardId: props.id,
+                        canBePutOnHome: props.canBePutOnHome,
+                    }),
+                )
+            }
+            draggable={props.isDraggable}
+            onDragStart={() =>
+                dispatch(
+                    setMoveFrom({
+                        stackId: props.stackId,
+                        cardId: props.id,
+                        canBePutOn: props.canBePutOn,
+                        canBePutOnHome: props.canBePutOnHome,
+                    }),
+                )
+            }
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => {
+                e.preventDefault();
+                dispatch(makeMove());
+            }}
+            // style={{
+            //     transform: !props.isDraggable
+            //         ? `translateY(${props.index}0px)`
+            //         : `translateY(${Number(props.index) * 10 + 28}px)`,
+            // }}
+            style={{
+                transform: `translateY(${Number(props.index) * 10 + 10}px)`,
+            }}
+        >
             <div>{props.image}</div>
-        </div>
+        </StyledBox>
     );
 };
 

@@ -102,12 +102,17 @@ const initialState = {
             }),
         ),
     },
-    deckStack: {
+    tableau8: {
         id: 8,
         title: 'deck stack',
-        cards: shuffledArray.slice(0, 24),
+        cards: shuffledArray.slice(0, 24).map((card) => {
+            return {
+                ...card,
+                stackId: 8,
+            };
+        }),
     },
-    deckStackFlipped: {
+    tableau9: {
         id: 9,
         title: 'deck stack flipped',
         cards: [],
@@ -133,73 +138,178 @@ const initialState = {
         cards: [],
     },
     activeCard: {},
+    moveFrom: {},
+    moveTo: {},
 };
 
 const tableauSlice = createSlice({
     name: 'tableau',
     initialState: initialState,
     reducers: {
-        setActiveCard: (state, args) => {
-            // Same card click => reset active card
-            if (args.payload.id === state.activeCard?.id) {
-                state.activeCard = {};
-            } else if (state.activeCard?.id && state.activeCard?.id !== args.payload.id) {
-                if (args.payload.stackId >= 10) {
-                    // TODO check if it moves from tableau to home here
-                } else if (state.activeCard?.canBePutOn?.[0].includes(args.payload.id)) {
-                    const activeCardStack = state.activeCard?.stackId;
-                    // TODO add logic to move small stack of flipped cards, now it is only one card
-                    const cardToMove = state[`tableau${activeCardStack}`].cards.slice(-1);
-                    state[`tableau${activeCardStack}`].cards = revealLastCard(
-                        state[`tableau${activeCardStack}`].cards.slice(
+        setMoveFrom: (state, args) => {
+            state.moveFrom = args.payload;
+        },
+        setMoveTo: (state, args) => {
+            state.moveTo = args.payload;
+        },
+        moveToFlipped: (state) => {
+            const cardToMove = state.tableau8.cards.slice(-1)[0];
+            state.tableau8.cards = state.tableau8.cards.slice(0, state.tableau8.cards.length - 1);
+
+            state.tableau9.cards = [...state.tableau9.cards, { ...cardToMove, isFaceDown: false, stackId: 9 }];
+        },
+        makeMove: (state) => {
+            if (state.moveFrom?.cardId && state.moveTo?.cardId) {
+                if (state.moveFrom.canBePutOn.includes(state.moveTo.cardId)) {
+                    // make move
+                    const cardToMove = state[`tableau${state.moveFrom.stackId}`].cards.slice(-1); // one last card
+                    state[`tableau${state.moveFrom.stackId}`].cards = revealLastCard(
+                        state[`tableau${state.moveFrom.stackId}`].cards.slice(
                             0,
-                            state[`tableau${activeCardStack}`].cards.length - 1,
+                            state[`tableau${state.moveFrom.stackId}`].cards.length - 1,
                         ),
                     );
 
-                    state[`tableau${args.payload.stackId}`].cards = [
-                        ...state[`tableau${args.payload.stackId}`].cards,
-                        { ...cardToMove[0], isFaceDown: false, stackId: args.payload.stackId },
+                    state[`tableau${state.moveTo.stackId}`].cards = [
+                        ...state[`tableau${state.moveTo.stackId}`].cards,
+                        ...cardToMove,
                     ];
-                    state.activeCard = {};
+
+                    state[`tableau${state.moveTo.stackId}`].cards = state[`tableau${state.moveTo.stackId}`].cards.map(
+                        (card) => ({ ...card, stackId: state.moveTo.stackId }),
+                    );
+                    console.log('MOVE happened ');
+
+                    state.moveTo = {};
+                    state.moveFrom = {};
+                } else {
+                    console.log('MOVE NOT happened ');
+                    // reset moveTo and moveFrom
+                    state.moveTo = {};
+                    state.moveFrom = {};
                 }
-            } else {
-                state.activeCard = { ...args.payload, image: null };
+            }
+
+            // Move King on empty field
+            if (state.moveFrom?.cardId && state.moveTo?.moveOnEmptyTableau) {
+                if (state.moveFrom.cardId.includes('13')) {
+                    // make move
+                    const cardToMove = state[`tableau${state.moveFrom.stackId}`].cards.slice(-1); // one last card
+                    state[`tableau${state.moveFrom.stackId}`].cards = revealLastCard(
+                        state[`tableau${state.moveFrom.stackId}`].cards.slice(
+                            0,
+                            state[`tableau${state.moveFrom.stackId}`].cards.length - 1,
+                        ),
+                    );
+
+                    state[`tableau${state.moveTo.stackId}`].cards = [...cardToMove];
+                    state[`tableau${state.moveTo.stackId}`].cards = state[`tableau${state.moveTo.stackId}`].cards.map(
+                        (card) => ({ ...card, stackId: state.moveTo.stackId }),
+                    );
+                    console.log('MOVE happened ');
+                } else {
+                    console.log('MOVE NOT happened ');
+                    // reset moveTo and moveFrom
+                    state.moveTo = {};
+                    state.moveFrom = {};
+                }
             }
         },
         moveCardToHome: (state, args) => {
+            // Move Ace to home
             if (args.payload.value === 1) {
-                state.activeCard = {};
-                // TODO need to add logic for other cards
+                const cardToMove = state[`tableau${args.payload.stackId}`].cards.slice(-1)[0];
+
                 state[`tableau${args.payload.stackId}`].cards = revealLastCard(
                     state[`tableau${args.payload.stackId}`].cards.slice(
                         0,
                         state[`tableau${args.payload.stackId}`].cards.length - 1,
                     ),
                 );
-                // Move Ace to home
                 switch (args.payload.cardSuit) {
                     case '♥':
-                        state.homeHearts.cards = [{ ...args.payload, stackId: state.homeHearts.id }];
+                        state.homeHearts.cards = [{ ...cardToMove, stackId: state.homeHearts.id }];
                         break;
                     case '♦':
-                        state.homeDiamonds.cards = [{ ...args.payload, stackId: state.homeDiamonds.id }];
+                        state.homeDiamonds.cards = [{ ...cardToMove, stackId: state.homeDiamonds.id }];
                         break;
                     case '♣':
-                        state.homeClubs.cards = [{ ...args.payload, stackId: state.homeClubs.id }];
+                        state.homeClubs.cards = [{ ...cardToMove, stackId: state.homeClubs.id }];
                         break;
                     case '♠':
-                        state.homeSpades.cards = [{ ...args.payload, stackId: state.homeSpades.id }];
+                        state.homeSpades.cards = [{ ...cardToMove, stackId: state.homeSpades.id }];
                         break;
 
                     default:
                         break;
-                }
+                } // Logic for other cards
+            } else if (args.payload.value !== 1) {
+                const cardToMove = state[`tableau${args.payload.stackId}`].cards.slice(-1)[0];
+                switch (args.payload.cardSuit) {
+                    case '♥':
+                        if (
+                            state.homeHearts.cards[state.homeHearts.cards.length - 1]?.id ===
+                            args.payload.canBePutOnHome
+                        ) {
+                            state[`tableau${args.payload.stackId}`].cards = revealLastCard(
+                                state[`tableau${args.payload.stackId}`].cards.slice(
+                                    0,
+                                    state[`tableau${args.payload.stackId}`].cards.length - 1,
+                                ),
+                            );
+                            state.homeHearts.cards = [{ ...cardToMove, stackId: state.homeHearts.id }];
+                        }
+                        break;
+                    case '♦':
+                        if (
+                            state.homeDiamonds.cards[state.homeDiamonds.cards.length - 1]?.id ===
+                            args.payload.canBePutOnHome
+                        ) {
+                            state[`tableau${args.payload.stackId}`].cards = revealLastCard(
+                                state[`tableau${args.payload.stackId}`].cards.slice(
+                                    0,
+                                    state[`tableau${args.payload.stackId}`].cards.length - 1,
+                                ),
+                            );
+                            state.homeDiamonds.cards = [{ ...cardToMove, stackId: state.homeDiamonds.id }];
+                        }
+                        break;
+                    case '♣':
+                        if (
+                            state.homeClubs.cards[state.homeClubs.cards.length - 1]?.id === args.payload.canBePutOnHome
+                        ) {
+                            state[`tableau${args.payload.stackId}`].cards = revealLastCard(
+                                state[`tableau${args.payload.stackId}`].cards.slice(
+                                    0,
+                                    state[`tableau${args.payload.stackId}`].cards.length - 1,
+                                ),
+                            );
+                            state.homeClubs.cards = [{ ...cardToMove, stackId: state.homeClubs.id }];
+                        }
+                        break;
+                    case '♠':
+                        if (
+                            state.homeSpades.cards[state.homeSpades.cards.length - 1]?.id ===
+                            args.payload.canBePutOnHome
+                        ) {
+                            state[`tableau${args.payload.stackId}`].cards = revealLastCard(
+                                state[`tableau${args.payload.stackId}`].cards.slice(
+                                    0,
+                                    state[`tableau${args.payload.stackId}`].cards.length - 1,
+                                ),
+                            );
+                            state.homeSpades.cards = [{ ...cardToMove, stackId: state.homeSpades.id }];
+                        }
+                        break;
+
+                    default:
+                        break;
+                } // Logic for other cards
             }
         },
         resetCards: (state) => {
             const newShuffledArray = shuffleArray(deckArray);
-            state.deckStack.cards = newShuffledArray.slice(0, 24);
+            state.tableau8.cards = newShuffledArray.slice(0, 24);
             // TODO need to reset HOME and deck flipped
             state.tableau1.cards = revealLastCard(
                 newShuffledArray.slice(24, 25).map((card) => {
@@ -241,10 +351,11 @@ const tableauSlice = createSlice({
     },
 });
 
-export const { setActiveCard, resetCards, moveCardToHome } = tableauSlice.actions;
+export const { resetCards, moveCardToHome, setMoveFrom, setMoveTo, makeMove, moveToFlipped } = tableauSlice.actions;
 
 export const activeCard = (state: RootState) => state.cards.activeCard;
-export const deckStack = (state: RootState) => state.cards.deckStack;
+export const deckStack = (state: RootState) => state.cards.tableau8;
+export const deckStackFlipped = (state: RootState) => state.cards.tableau9;
 export const tableau1 = (state: RootState) => state.cards.tableau1;
 export const tableau2 = (state: RootState) => state.cards.tableau2;
 export const tableau3 = (state: RootState) => state.cards.tableau3;

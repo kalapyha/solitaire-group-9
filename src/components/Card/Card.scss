@@ -5,4 +5,19 @@
 
 .card {
     cursor: grab;
+    position: 'absolute';
+    bottom: 0;
+    transform-origin: 'bottom center';
+    transform: 'translateY(10px) rotate(1deg)';
+}
+.card:nth-child(2) {
+    transform: translateY(10px) rotate(1deg);
+}
+
+.card:nth-child(3) {
+    transform: translateY(20px) rotate(2deg);
+}
+
+.card:nth-child(4) {
+    transform: translateY(30px) rotate(3deg);
 }
