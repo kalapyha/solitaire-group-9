@@ -6,6 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import StarIcon from '@mui/icons-material/Star';
+import CircleIcon from '@mui/icons-material/CircleOutlined';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 
@@ -19,6 +20,14 @@ const rulesArray: string[] = [
     'The player can move a group of cards from one tableau pile to another if they are in sequence and of the opposite color.',
     'The player can flip over the face-down cards in the tableau to reveal them.',
     'The player wins the game when all cards have been moved to the foundation piles in order from Ace to King, by suit.',
+];
+
+const diffArray = [
+    'Scoring: In Klondike, the objective is to move all the cards to the foundation piles, and the score is based on the time taken to finish the game. In Vegas, the player starts with a fixed number of points (e.g., 500), and the score is reduced for each card that is moved from the tableau to the foundation pile. The aim is to score as many points as possible before running out of cards.',
+    'Redeals: In Klondike, players can only redeal the tableau cards three times, while in Vegas, there is no limit to the number of times players can redeal the tableau cards.',
+    'Card movement: In Klondike, players can move one card at a time from the stockpile or the tableau, while in Vegas, players can move multiple cards from the tableau to the foundation pile at once.',
+    'Winning: In Klondike, the game is won when all cards have been moved to the foundation piles in the correct order. In Vegas, the game is won when all cards have been moved to the foundation piles and the player has accumulated a high score.',
+    'Overall, Vegas is a more challenging version of solitaire, as players need to strategize to accumulate a high score while avoiding running out of cards. Klondike is a classic version of the game and is generally considered to be easier to play.',
 ];
 const StyledTypography = styled(Typography)(({ theme }) => ({
     marginBottom: theme.spacing(2),
@@ -52,6 +61,21 @@ const Instructions = () => {
                                 <ListItem key={i}>
                                     <ListItemIcon>
                                         <StarIcon color="disabled" />
+                                    </ListItemIcon>
+                                    <ListItemText primary={rule} />
+                                </ListItem>
+                            );
+                        })}
+                    </List>
+                    <Typography variant="h6">
+                        Here are some of the main differences between Vegas and Klondike rules for solitaire:
+                    </Typography>
+                    <List>
+                        {diffArray.map((rule, i) => {
+                            return (
+                                <ListItem key={i}>
+                                    <ListItemIcon>
+                                        <CircleIcon color="disabled" />
                                     </ListItemIcon>
                                     <ListItemText primary={rule} />
                                 </ListItem>
