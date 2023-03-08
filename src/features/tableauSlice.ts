@@ -320,7 +320,12 @@ const tableauSlice = createSlice({
             state.homeDiamonds.cards = [];
             state.homeHearts.cards = [];
             state.homeSpades.cards = [];
-            state.tableau8.cards = newShuffledArray.slice(0, 24);
+            state.tableau8.cards = newShuffledArray.slice(0, 24).map((card) => {
+                return {
+                    ...card,
+                    stackId: 8,
+                };
+            });
             state.tableau1.cards = revealLastCard(
                 newShuffledArray.slice(24, 25).map((card) => {
                     return {
@@ -360,6 +365,8 @@ const tableauSlice = createSlice({
                 }),
             );
             state.activeCard = {};
+            state.moveFrom = {};
+            state.moveTo = {};
         },
     },
 });
