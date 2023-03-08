@@ -123,7 +123,11 @@ const Navigation = ({ open }: NavigationProps): JSX.Element => {
                 </ListItem>
             </List>
             <Suspense fallback={<div>Loading...</div>}>
-                <CloseModal open={openModal} handleClose={() => setOpenModal(false)} />
+                <CloseModal
+                    open={openModal}
+                    handleClose={() => setOpenModal(false)}
+                    handleConfirm={() => setOpenModal(false)}
+                />
             </Suspense>
         </>
     );

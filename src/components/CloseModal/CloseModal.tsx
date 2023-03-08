@@ -10,13 +10,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 type CloseModalProps = {
     open: boolean;
     handleClose: () => void;
+    handleConfirm: () => void;
+    title?: string;
+    message?: string;
+    actionText?: string;
 };
-const CloseModal = ({ open, handleClose }: CloseModalProps) => {
-    const handleClosePage = () => {
-        handleClose();
-        // TODO handle logout logic ?
-    };
-
+const CloseModal = ({ open, handleClose, handleConfirm, message, actionText, title }: CloseModalProps) => {
     return (
         <Dialog
             open={open}
@@ -24,16 +23,16 @@ const CloseModal = ({ open, handleClose }: CloseModalProps) => {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
         >
-            <DialogTitle id="alert-dialog-title">{'Log Out'}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{title || 'Log Out'}</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    Are you sure you want to log out of your account? Your session will end and you will need to log in
-                    again to access your account.
+                    {message ||
+                        'Are you sure you want to log out of your account? Your session will end and you will need to log in again to access your account.'}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClosePage} variant="contained" color="error">
-                    Logout
+                <Button onClick={handleConfirm} variant="contained" color="error">
+                    {actionText || 'Logout'}
                 </Button>
                 <Button onClick={handleClose} variant="contained" color="success" autoFocus>
                     Cancel

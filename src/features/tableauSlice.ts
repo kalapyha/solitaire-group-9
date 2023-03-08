@@ -322,7 +322,7 @@ const tableauSlice = createSlice({
             state.homeSpades.cards = [];
             state.tableau8.cards = newShuffledArray.slice(0, 24);
             state.tableau1.cards = revealLastCard(
-                shuffledArray.slice(24, 25).map((card) => {
+                newShuffledArray.slice(24, 25).map((card) => {
                     return {
                         ...card,
                         stackId: 1,

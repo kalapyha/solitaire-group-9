@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, Suspense } from 'react';
 import Box from '@mui/material/Box';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -11,6 +11,9 @@ import Blue from '../../assets/backs/Blue';
 import Red from '../../assets/backs/Red';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectPattern, changeCardPattern, changeGameRules, selectedRules } from '../../features/settingsSlice';
+import { resetCards } from '../../features/tableauSlice';
+
+const CloseModal = React.lazy(() => import('../CloseModal/CloseModal'));
 
 const StyledCardWrapper = styled(Box)(({ theme }) => ({
     display: 'flex',
@@ -34,6 +37,8 @@ const Settings = () => {
     const imagePattern = useSelector(selectPattern);
     const gameRules = useSelector(selectedRules);
     const dispatch = useDispatch();
+    const [openModal, setOpenModal] = useState(false);
+    const [ruleValue, setRuleValue] = useState('');
     return (
         <Box
             style={{
@@ -87,7 +92,12 @@ const Settings = () => {
             <StyledTypography mt={5} variant="h5">
                 Rules
             </StyledTypography>
-            <FormControl onChange={(e) => dispatch(changeGameRules((e.target as HTMLInputElement).value))}>
+            <FormControl
+                onChange={(e) => {
+                    setOpenModal(true);
+                    setRuleValue((e.target as HTMLInputElement).value);
+                }}
+            >
                 <StyledRadioGroup>
                     <StyledCardWrapper>
                         <FormControlLabel
@@ -106,6 +116,20 @@ const Settings = () => {
                         />
                     </StyledCardWrapper>
                 </StyledRadioGroup>
+                <Suspense fallback={<div>Loading...</div>}>
+                    <CloseModal
+                        title={'Warning'}
+                        actionText="Confirm"
+                        message={`This change will reset current game. You might lose your progress. Do you want to change game rules and use ${ruleValue}?`}
+                        open={openModal}
+                        handleClose={() => setOpenModal(false)}
+                        handleConfirm={() => {
+                            dispatch(resetCards());
+                            dispatch(changeGameRules(ruleValue));
+                            setOpenModal(false);
+                        }}
+                    />
+                </Suspense>
             </FormControl>
         </Box>
     );
