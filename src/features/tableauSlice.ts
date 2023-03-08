@@ -152,6 +152,12 @@ const tableauSlice = createSlice({
         setMoveTo: (state, args) => {
             state.moveTo = args.payload;
         },
+        redealCards: (state) => {
+            state.tableau8.cards = state.tableau9.cards.reverse().map((card) => {
+                return { ...card, stackId: 8, isFaceDown: true };
+            });
+            state.tableau9.cards = [];
+        },
         moveToFlipped: (state) => {
             const cardToMove = state.tableau8.cards.slice(-1)[0];
             state.tableau8.cards = state.tableau8.cards.slice(0, state.tableau8.cards.length - 1);
@@ -351,7 +357,8 @@ const tableauSlice = createSlice({
     },
 });
 
-export const { resetCards, moveCardToHome, setMoveFrom, setMoveTo, makeMove, moveToFlipped } = tableauSlice.actions;
+export const { resetCards, moveCardToHome, setMoveFrom, setMoveTo, makeMove, moveToFlipped, redealCards } =
+    tableauSlice.actions;
 
 export const activeCard = (state: RootState) => state.cards.activeCard;
 export const deckStack = (state: RootState) => state.cards.tableau8;

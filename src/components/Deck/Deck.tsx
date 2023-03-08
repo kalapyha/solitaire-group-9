@@ -1,9 +1,14 @@
 import React from 'react';
 import { CardType } from '../../types';
 import Card from '../Card/Card';
-import { styled, Card as MUICard, Box } from '@mui/material';
+import { styled, Card as MUICard, Box, IconButton } from '@mui/material';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { useDispatch } from 'react-redux';
-import { setMoveTo } from '../../features/tableauSlice';
+import { useSelector } from 'react-redux';
+import { selectRedeals } from '../../features/scoreSlice';
+import { setMoveTo, redealCards } from '../../features/tableauSlice';
+import { decrementRedeals } from '../../features/scoreSlice';
+import { selectedRules } from '../../features/settingsSlice';
 
 const StyledCard = styled(MUICard)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -15,15 +20,30 @@ const StyledCard = styled(MUICard)(({ theme }) => ({
     justifyContent: 'center',
 }));
 
+const StyledIconButton = styled(IconButton)(() => ({
+    '& svg': {
+        width: '3em',
+        height: '3em',
+    },
+}));
+
 type DeckdProps = {
     cardsArray: CardType[];
     allowEmpty?: boolean;
     tableauId?: number;
     smallShift?: boolean;
     styleOverride?: React.CSSProperties;
+    showRedeal?: boolean;
 };
 
-const Deck = ({ cardsArray, allowEmpty = false, tableauId, smallShift, styleOverride }: DeckdProps) => {
+const Deck = ({
+    cardsArray,
+    allowEmpty = false,
+    tableauId,
+    smallShift,
+    styleOverride,
+    showRedeal = false,
+}: DeckdProps) => {
     const dispatch = useDispatch();
     const lastCard = cardsArray[cardsArray.length - 1];
 
@@ -50,6 +70,36 @@ const Deck = ({ cardsArray, allowEmpty = false, tableauId, smallShift, styleOver
                 <StyledCard>
                     {/* @ts-ignore */}
                     <Card isPlaceholder />
+                </StyledCard>
+            </Box>
+        );
+    }
+    if (showRedeal && !cardsArray.length) {
+        return (
+            <Box
+                style={{
+                    position: 'relative',
+                    width: '200px',
+                    height: '300px',
+                    marginRight: 45,
+                    marginTop: -40,
+                    ...styleOverride,
+                }}
+            >
+                <StyledCard>
+                    <StyledIconButton
+                        data-testid="redeal-btn"
+                        aria-label="Redeal"
+                        color="primary"
+                        size="large"
+                        onClick={() => {
+                            dispatch(redealCards());
+                            dispatch(decrementRedeals());
+                        }}
+                        disabled={!Boolean(useSelector(selectRedeals)) || useSelector(selectedRules) === 'Vegas'}
+                    >
+                        <RestartAltIcon />
+                    </StyledIconButton>
                 </StyledCard>
             </Box>
         );
