@@ -10,7 +10,7 @@ import Astronaut from '../../assets/backs/Astronaut';
 import Blue from '../../assets/backs/Blue';
 import Red from '../../assets/backs/Red';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectPattern, changeCardPattern } from '../../features/settingsSlice';
+import { selectPattern, changeCardPattern, changeGameRules, selectedRules } from '../../features/settingsSlice';
 
 const StyledCardWrapper = styled(Box)(({ theme }) => ({
     display: 'flex',
@@ -32,6 +32,7 @@ const StyledRadioGroup = styled(RadioGroup)(({ theme }) => ({
 
 const Settings = () => {
     const imagePattern = useSelector(selectPattern);
+    const gameRules = useSelector(selectedRules);
     const dispatch = useDispatch();
     return (
         <Box
@@ -80,6 +81,29 @@ const Settings = () => {
                             checked={imagePattern === 'Abstract'}
                         />
                         <Abstract />
+                    </StyledCardWrapper>
+                </StyledRadioGroup>
+            </FormControl>
+            <StyledTypography mt={5} variant="h5">
+                Rules
+            </StyledTypography>
+            <FormControl onChange={(e) => dispatch(changeGameRules((e.target as HTMLInputElement).value))}>
+                <StyledRadioGroup>
+                    <StyledCardWrapper>
+                        <FormControlLabel
+                            value="Klondike"
+                            control={<Radio />}
+                            label="Klondike"
+                            checked={gameRules === 'Klondike'}
+                        />
+                    </StyledCardWrapper>
+                    <StyledCardWrapper>
+                        <FormControlLabel
+                            value="Vegas"
+                            control={<Radio />}
+                            label="Vegas"
+                            checked={gameRules === 'Vegas'}
+                        />
                     </StyledCardWrapper>
                 </StyledRadioGroup>
             </FormControl>

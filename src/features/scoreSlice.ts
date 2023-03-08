@@ -4,10 +4,12 @@ import type { RootState } from '../store';
 
 export interface ScoreState {
     value: number;
+    redealsCount: number;
 }
 
 const initialState: ScoreState = {
-    value: 42,
+    value: 500,
+    redealsCount: 3,
 };
 
 const scoreSlice = createSlice({
@@ -23,11 +25,19 @@ const scoreSlice = createSlice({
         scoreReset: (state) => {
             state.value = 0;
         },
+        decrementRedeals: (state) => {
+            state.redealsCount -= 1;
+        },
+        redealsReset: (state) => {
+            state.redealsCount = 3;
+        },
     },
 });
 
-export const { scoreIncrement, scoreIncrementByAmount, scoreReset } = scoreSlice.actions;
+export const { scoreIncrement, scoreIncrementByAmount, scoreReset, decrementRedeals, redealsReset } =
+    scoreSlice.actions;
 
 export const selectCount = (state: RootState) => state.score.value;
+export const selectRedeals = (state: RootState) => state.score.redealsCount;
 
 export default scoreSlice.reducer;
