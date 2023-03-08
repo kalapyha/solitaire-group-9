@@ -315,11 +315,18 @@ const tableauSlice = createSlice({
         },
         resetCards: (state) => {
             const newShuffledArray = shuffleArray(deckArray);
+            state.tableau9.cards = [];
+            state.homeClubs.cards = [];
+            state.homeDiamonds.cards = [];
+            state.homeHearts.cards = [];
+            state.homeSpades.cards = [];
             state.tableau8.cards = newShuffledArray.slice(0, 24);
-            // TODO need to reset HOME and deck flipped
             state.tableau1.cards = revealLastCard(
-                newShuffledArray.slice(24, 25).map((card) => {
-                    return { ...card, stackId: 1 };
+                shuffledArray.slice(24, 25).map((card) => {
+                    return {
+                        ...card,
+                        stackId: 1,
+                    };
                 }),
             );
             state.tableau2.cards = revealLastCard(

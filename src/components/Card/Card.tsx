@@ -60,10 +60,8 @@ const Card = (props: CardProps): JSX.Element => {
         <StyledBox
             onClick={() => {
                 if (props.stackId === 8) {
-                    // make move to isFlipped
                     dispatch(moveToFlipped());
                 }
-                console.log(props);
             }}
             style={{ transform: props.smallShift ? `translateY(${props.index}px)` : `translateY(${props.index}0px)` }}
         >
@@ -99,13 +97,8 @@ const Card = (props: CardProps): JSX.Element => {
                 e.preventDefault();
                 dispatch(makeMove());
             }}
-            // style={{
-            //     transform: !props.isDraggable
-            //         ? `translateY(${props.index}0px)`
-            //         : `translateY(${Number(props.index) * 10 + 28}px)`,
-            // }}
             style={{
-                transform: `translateY(${Number(props.index) * 10 + 10}px)`,
+                transform: `translateY(${Number(props.index)}em)`,
             }}
         >
             <div>{props.image}</div>
