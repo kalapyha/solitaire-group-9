@@ -23,6 +23,7 @@ interface CardProps extends CardType {
     index?: number | string;
     isPlaceholder?: boolean;
     smallShift?: boolean;
+    noShift?: boolean;
 }
 
 const Card = (props: CardProps): JSX.Element => {
@@ -98,7 +99,7 @@ const Card = (props: CardProps): JSX.Element => {
                 dispatch(makeMove());
             }}
             style={{
-                transform: `translateY(${Number(props.index)}em)`,
+                transform: !props.noShift ? `translateY(${Number(props.index)}em)` : '',
             }}
         >
             <div>{props.image}</div>

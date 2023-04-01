@@ -52,7 +52,12 @@ const Board = (): JSX.Element => {
                     justifyContent="flex-start"
                     alignContent="center"
                 >
-                    <Deck cardsArray={cards} smallShift styleOverride={{ marginTop: '30px' }} showRedeal={true} />
+                    <Deck
+                        cardsArray={cards}
+                        smallShift
+                        styleOverride={{ marginTop: cards.length ? '30px' : '-5px' }}
+                        showRedeal={true}
+                    />
                 </Grid>
                 <Grid
                     item
@@ -64,7 +69,7 @@ const Board = (): JSX.Element => {
                     alignContent="center"
                     mt={4}
                 >
-                    <Deck cardsArray={flippedCards} allowEmpty />
+                    <Deck cardsArray={flippedCards} allowEmpty noShift />
                 </Grid>
 
                 <Grid

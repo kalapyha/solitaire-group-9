@@ -34,6 +34,7 @@ type DeckdProps = {
     smallShift?: boolean;
     styleOverride?: React.CSSProperties;
     showRedeal?: boolean;
+    noShift?: boolean;
 };
 
 const Deck = ({
@@ -43,6 +44,7 @@ const Deck = ({
     smallShift,
     styleOverride,
     showRedeal = false,
+    noShift = false,
 }: DeckdProps) => {
     const dispatch = useDispatch();
     const lastCard = cardsArray[cardsArray.length - 1];
@@ -139,6 +141,7 @@ const Deck = ({
                         canBePutOnHome={canBePutOnHome}
                         index={i}
                         smallShift={smallShift}
+                        noShift={noShift}
                     />
                 ),
             )}
