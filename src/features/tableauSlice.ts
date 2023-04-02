@@ -149,8 +149,12 @@ const tableauSlice = createSlice({
     reducers: {
         undo: (state) => {
             if (state.history.length > 0) {
-                // Set the current game state to the last one in the history array
-                state.currentGameState = state.history.pop();
+                const prevMoveState = state.history[0];
+                state.history = [];
+                console.log('here!');
+                for (const key in prevMoveState) {
+                    state[key] = prevMoveState[key];
+                }
             }
         },
         setMoveFrom: (state, args) => {
@@ -171,9 +175,27 @@ const tableauSlice = createSlice({
 
             state.tableau9.cards = [...state.tableau9.cards, { ...cardToMove, isFaceDown: false, stackId: 9 }];
         },
+        saveToHistory: (state) => {
+            state.history = [
+                {
+                    [`tableau${state.moveFrom.stackId}`]: state[`tableau${state.moveFrom.stackId}`],
+                    [`tableau${state.moveTo.stackId}`]: state[`tableau${state.moveTo.stackId}`],
+                },
+            ];
+            console.log('History saved ');
+            console.log(state.history);
+        },
         makeMove: (state) => {
             if (state.moveFrom?.cardId && state.moveTo?.cardId) {
                 if (state.moveFrom.canBePutOn.includes(state.moveTo.cardId)) {
+                    // save to history
+                    // state.history = [
+                    //     {
+                    //         [`tableau${state.moveFrom.stackId}`]: state[`tableau${state.moveFrom.stackId}`],
+                    //         [`tableau${state.moveTo.stackId}`]: state[`tableau${state.moveTo.stackId}`],
+                    //     },
+                    // ];
+
                     // make move
                     const cardToMove = state[`tableau${state.moveFrom.stackId}`].cards.slice(-1); // one last card
                     state[`tableau${state.moveFrom.stackId}`].cards = revealLastCard(
@@ -378,8 +400,17 @@ const tableauSlice = createSlice({
     },
 });
 
-export const { resetCards, moveCardToHome, setMoveFrom, setMoveTo, makeMove, moveToFlipped, redealCards } =
-    tableauSlice.actions;
+export const {
+    resetCards,
+    moveCardToHome,
+    setMoveFrom,
+    setMoveTo,
+    makeMove,
+    moveToFlipped,
+    redealCards,
+    undo,
+    saveToHistory,
+} = tableauSlice.actions;
 
 export const activeCard = (state: RootState) => state.cards.activeCard;
 export const deckStack = (state: RootState) => state.cards.tableau8;
@@ -395,8 +426,6 @@ export const homeHearts = (state: RootState) => state.cards.homeHearts;
 export const homeDiamonds = (state: RootState) => state.cards.homeDiamonds;
 export const homeSpades = (state: RootState) => state.cards.homeSpades;
 export const homeClubs = (state: RootState) => state.cards.homeClubs;
-export const getGameState = (state: RootState) => {
-    return state.cards;
-};
+export const history = (state: RootState) => state.cards.history;
 
 export default tableauSlice.reducer;

@@ -20,6 +20,8 @@ import { Routes, Route } from 'react-router-dom';
 import Board from '../Board/Board';
 import Settings from '../Settings/Settings';
 import Instructions from '../Instructions/Instructions';
+import { useDispatch, useSelector } from 'react-redux';
+import { history, undo } from '../../features/tableauSlice';
 
 const drawerWidth = 240;
 
@@ -77,6 +79,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function MiniDrawer() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const hasUndoMove = useSelector(history);
+    const dispatch = useDispatch();
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -122,8 +126,8 @@ export default function MiniDrawer() {
                             color="primary"
                             aria-label="undo move"
                             // TODO nick undoe history move dispatch here
-                            // disabled TODO too from selector
-                            // onClick={handleDrawerOpen}
+                            disabled={!hasUndoMove.length}
+                            onClick={() => dispatch(undo())}
                             edge="start"
                             sx={{
                                 marginLeft: 2,
