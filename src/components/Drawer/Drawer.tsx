@@ -11,6 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import Undo from '@mui/icons-material/Undo';
 import SwitchDayNight from './components/SwitchDayNight';
 import Reset from './components/Reset';
 import Score from './components/Score';
@@ -117,6 +118,19 @@ export default function MiniDrawer() {
                             }}
                         />
                         <Score />
+                        <IconButton
+                            color="primary"
+                            aria-label="undo move"
+                            // TODO nick undoe history move dispatch here
+                            // disabled TODO too from selector
+                            // onClick={handleDrawerOpen}
+                            edge="start"
+                            sx={{
+                                marginLeft: 2,
+                            }}
+                        >
+                            <Undo />
+                        </IconButton>
                     </Box>
                     <Box display="flex" alignItems="center">
                         <Reset />
