@@ -9,6 +9,7 @@ export const store = configureStore({
         settings: settingsReducer,
         cards: cardsReducer,
     },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

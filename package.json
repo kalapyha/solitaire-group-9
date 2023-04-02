@@ -19,7 +19,7 @@
         "web-vitals": "^2.1.4"
     },
     "scripts": {
-        "start": "react-scripts start",
+        "start": "react-scripts start -p 3000",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "storybook": "start-storybook -p 6006 -s public",

@@ -4,10 +4,9 @@ import Red from '../../assets/backs/Red';
 import Abstract from '../../assets/backs/Abstract';
 import Astronaut from '../../assets/backs/Astronaut';
 import { CardType } from '../../types';
-import { useSelector } from 'react-redux';
 import { selectPattern } from '../../features/settingsSlice';
-import { useDispatch } from 'react-redux';
-import { moveCardToHome, setMoveFrom, makeMove, moveToFlipped } from '../../features/tableauSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { moveCardToHome, setMoveFrom, makeMove, moveToFlipped, getGameState } from '../../features/tableauSlice';
 import { Box, styled } from '@mui/material';
 import './Card.scss';
 
@@ -29,6 +28,7 @@ interface CardProps extends CardType {
 const Card = (props: CardProps): JSX.Element => {
     const imagePattern = useSelector(selectPattern);
     const dispatch = useDispatch();
+    const cards = useSelector(getGameState);
     const renderCardBackPattern = () => {
         switch (imagePattern) {
             case 'Blue':
@@ -52,6 +52,7 @@ const Card = (props: CardProps): JSX.Element => {
                 onDrop={(e) => {
                     e.preventDefault();
                     dispatch(makeMove());
+                    console.log(cards);
                 }}
                 style={{ width: '100%', height: '100%', margin: 0 }}
             ></StyledBox>
@@ -97,6 +98,7 @@ const Card = (props: CardProps): JSX.Element => {
             onDrop={(e) => {
                 e.preventDefault();
                 dispatch(makeMove());
+                console.log(cards);
             }}
             style={{
                 transform: !props.noShift ? `translateY(${Number(props.index)}em)` : '',

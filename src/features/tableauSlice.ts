@@ -140,12 +140,19 @@ const initialState = {
     activeCard: {},
     moveFrom: {},
     moveTo: {},
+    history: [],
 };
 
 const tableauSlice = createSlice({
     name: 'tableau',
     initialState: initialState,
     reducers: {
+        undo: (state) => {
+            if (state.history.length > 0) {
+                // Set the current game state to the last one in the history array
+                state.currentGameState = state.history.pop();
+            }
+        },
         setMoveFrom: (state, args) => {
             state.moveFrom = args.payload;
         },
@@ -388,5 +395,8 @@ export const homeHearts = (state: RootState) => state.cards.homeHearts;
 export const homeDiamonds = (state: RootState) => state.cards.homeDiamonds;
 export const homeSpades = (state: RootState) => state.cards.homeSpades;
 export const homeClubs = (state: RootState) => state.cards.homeClubs;
+export const getGameState = (state: RootState) => {
+    return state.cards;
+};
 
 export default tableauSlice.reducer;
