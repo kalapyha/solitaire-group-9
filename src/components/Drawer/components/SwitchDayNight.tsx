@@ -2,6 +2,8 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import Box from '@mui/material/Box';
+import { useDispatch } from 'react-redux';
+import { toggleNightMode } from '../../../features/settingsSlice';
 
 const StyledSwitch = styled(Switch)(({ theme }) => ({
     width: 62,
@@ -51,9 +53,10 @@ const StyledSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const SwitchDayNight = () => {
+    const dispatch = useDispatch();
     return (
         <Box>
-            <StyledSwitch data-testid="day-night-switcher" />
+            <StyledSwitch data-testid="day-night-switcher" onClick={() => dispatch(toggleNightMode())} />
         </Box>
     );
 };

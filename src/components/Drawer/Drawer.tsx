@@ -22,6 +22,7 @@ import Settings from '../Settings/Settings';
 import Instructions from '../Instructions/Instructions';
 import { useDispatch, useSelector } from 'react-redux';
 import { history, undo } from '../../features/tableauSlice';
+import { selectedThemeMode } from '../../features/settingsSlice';
 
 const drawerWidth = 240;
 
@@ -80,6 +81,7 @@ export default function MiniDrawer() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const hasUndoMove = useSelector(history);
+    const isDarkMode = useSelector(selectedThemeMode);
     const dispatch = useDispatch();
 
     const handleDrawerOpen = () => {
@@ -93,7 +95,12 @@ export default function MiniDrawer() {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open} color="default">
+            <AppBar
+                position="fixed"
+                open={open}
+                color="inherit"
+                style={isDarkMode ? { backgroundColor: 'grey', color: 'white' } : {}}
+            >
                 <Toolbar style={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
                     <Box display="flex" alignItems="center">
                         <IconButton
@@ -125,13 +132,18 @@ export default function MiniDrawer() {
                         <IconButton
                             color="primary"
                             aria-label="undo move"
-                            // TODO nick undoe history move dispatch here
                             disabled={!hasUndoMove.length}
                             onClick={() => dispatch(undo())}
-                            edge="start"
-                            sx={{
-                                marginLeft: 2,
-                            }}
+                            style={
+                                isDarkMode
+                                    ? {
+                                          color: hasUndoMove.length ? 'white' : 'lightgrey',
+                                          marginLeft: '25px',
+                                      }
+                                    : {
+                                          marginLeft: '25px',
+                                      }
+                            }
                         >
                             <Undo />
                         </IconButton>
@@ -141,7 +153,8 @@ export default function MiniDrawer() {
                         <Divider
                             orientation="vertical"
                             style={{
-                                backgroundColor: 'rgba(0, 0, 0, 0.12)',
+                                color: 'white',
+                                backgroundColor: isDarkMode ? 'white' : 'rgba(0, 0, 0, 0.12)',
                                 height: '30px',
                                 width: '1px',
                                 marginRight: '16px',
