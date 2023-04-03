@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { moveCardToHome, setMoveFrom, makeMove, moveToFlipped, saveToHistory } from '../../features/tableauSlice';
 import { Box, styled } from '@mui/material';
 import './Card.scss';
+import { scoreDecrement } from '../../features/scoreSlice';
 
 const StyledBox = styled(Box)(({}) => ({
     cursor: 'grab',
@@ -52,6 +53,7 @@ const Card = (props: CardProps): JSX.Element => {
                     e.preventDefault();
                     dispatch(saveToHistory());
                     dispatch(makeMove());
+                    dispatch(scoreDecrement());
                 }}
                 style={{ width: '100%', height: '100%', margin: 0 }}
             ></StyledBox>
@@ -98,6 +100,7 @@ const Card = (props: CardProps): JSX.Element => {
                 e.preventDefault();
                 dispatch(saveToHistory());
                 dispatch(makeMove());
+                dispatch(scoreDecrement());
             }}
             style={{
                 transform: !props.noShift ? `translateY(${Number(props.index)}em)` : '',

@@ -12,6 +12,7 @@ import Red from '../../assets/backs/Red';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectPattern, changeCardPattern, changeGameRules, selectedRules } from '../../features/settingsSlice';
 import { resetCards } from '../../features/tableauSlice';
+import { scoreReset } from '../../features/scoreSlice';
 
 const CloseModal = React.lazy(() => import('../CloseModal/CloseModal'));
 
@@ -125,6 +126,7 @@ const Settings = () => {
                         handleClose={() => setOpenModal(false)}
                         handleConfirm={() => {
                             dispatch(resetCards());
+                            dispatch(scoreReset());
                             dispatch(changeGameRules(ruleValue));
                             setOpenModal(false);
                         }}

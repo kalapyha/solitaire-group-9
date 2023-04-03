@@ -126,6 +126,7 @@ const Deck = ({
                 );
             }}
         >
+            {/* TODO split this array and render separately face down and normal cards */}
             {cardsArray.map(
                 ({ value, cardSuit, isFaceDown, image, canBePutOn, canBePutOnHome, stackId, id }: CardType, i) => (
                     <Card
@@ -134,7 +135,8 @@ const Deck = ({
                         isFaceDown={isFaceDown}
                         image={image}
                         key={`${value}${cardSuit}`}
-                        isDraggable={cardsArray.length - 1 === i ? true : false}
+                        // isDraggable={cardsArray.length - 1 === i ? true : false}
+                        isDraggable={!isFaceDown}
                         id={id}
                         stackId={stackId}
                         canBePutOn={canBePutOn}

@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 
 export interface ScoreState {
@@ -16,14 +15,11 @@ const scoreSlice = createSlice({
     name: 'score',
     initialState: initialState,
     reducers: {
-        scoreIncrement: (state) => {
-            state.value += 1;
-        },
-        scoreIncrementByAmount: (state, action: PayloadAction<number>) => {
-            state.value += action.payload;
+        scoreDecrement: (state) => {
+            state.value -= 10;
         },
         scoreReset: (state) => {
-            state.value = 0;
+            state.value = 500;
         },
         decrementRedeals: (state) => {
             state.redealsCount -= 1;
@@ -34,8 +30,7 @@ const scoreSlice = createSlice({
     },
 });
 
-export const { scoreIncrement, scoreIncrementByAmount, scoreReset, decrementRedeals, redealsReset } =
-    scoreSlice.actions;
+export const { scoreDecrement, scoreReset, decrementRedeals, redealsReset } = scoreSlice.actions;
 
 export const selectCount = (state: RootState) => state.score.value;
 export const selectRedeals = (state: RootState) => state.score.redealsCount;
