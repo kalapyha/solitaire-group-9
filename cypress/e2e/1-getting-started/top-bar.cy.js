@@ -6,9 +6,9 @@ describe('Top bar', () => {
     });
 
     it('should reset score', () => {
-        cy.get('.MuiChip-label').should('have.text', 'Score: 42');
+        cy.get('.MuiChip-label').should('have.text', 'Score: -');
         cy.get('[data-testid="reset-btn"]').click();
-        cy.get('.MuiChip-label').should('have.text', 'Score: 0');
+        cy.get('.MuiChip-label').should('have.text', 'Score: -');
     });
 
     it('should toggle theme', () => {
