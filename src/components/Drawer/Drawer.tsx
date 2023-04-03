@@ -67,6 +67,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
+    // '& .MuiPaper-root': { backgroundColor: 'grey' },
     ...(open && {
         ...openedMixin(),
         '& .MuiDrawer-paper': openedMixin(),
@@ -93,9 +94,10 @@ export default function MiniDrawer() {
     };
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', backgroundColor: 'purple' }}>
             <CssBaseline />
             <AppBar
+                id="app-bar"
                 position="fixed"
                 open={open}
                 color="inherit"
@@ -166,8 +168,8 @@ export default function MiniDrawer() {
                 </Toolbar>
             </AppBar>
 
-            <Drawer variant="permanent" open={open}>
-                <DrawerHeader>
+            <Drawer variant="permanent" open={open} id="drawer-header">
+                <DrawerHeader style={isDarkMode ? { backgroundColor: 'grey', color: 'white' } : {}}>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>

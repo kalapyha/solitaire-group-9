@@ -19,10 +19,12 @@ import {
     homeDiamonds,
     homeSpades,
 } from '../../features/tableauSlice';
+import { selectedThemeMode } from '../../features/settingsSlice';
 
 const Board = (): JSX.Element => {
     const { cards } = useSelector(deckStack);
     const flippedCards = useSelector(deckStackFlipped).cards;
+    const isDarkMode = useSelector(selectedThemeMode);
     const cards1 = useSelector(tableau1);
     const cards2 = useSelector(tableau2);
     const cards3 = useSelector(tableau3);
@@ -37,8 +39,9 @@ const Board = (): JSX.Element => {
     return (
         <Box
             style={{
-                background:
-                    'radial-gradient(circle, rgba(21,107,25,1) 0%, rgba(40,122,49,1) 45%, rgba(39,110,23,1) 100%)',
+                background: isDarkMode
+                    ? 'rgba(39,110,23,0.95)'
+                    : 'radial-gradient(circle, rgba(21,107,25,1) 0%, rgba(40,122,49,1) 45%, rgba(39,110,23,1) 100%)',
                 padding: 0,
             }}
         >

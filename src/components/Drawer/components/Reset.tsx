@@ -1,12 +1,14 @@
 import React from 'react';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import IconButton from '@mui/material/IconButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { scoreReset } from '../../../features/scoreSlice';
 import { resetCards } from '../../../features/tableauSlice';
+import { selectedThemeMode } from '../../../features/settingsSlice';
 
 const Reset = () => {
     const dispatch = useDispatch();
+    const isDarkMode = useSelector(selectedThemeMode);
 
     return (
         <IconButton
@@ -17,6 +19,7 @@ const Reset = () => {
                 dispatch(resetCards());
                 dispatch(scoreReset());
             }}
+            style={isDarkMode ? { color: 'white' } : {}}
         >
             <RestartAltIcon />
         </IconButton>

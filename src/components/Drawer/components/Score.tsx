@@ -2,17 +2,20 @@ import React from 'react';
 import Chip from '@mui/material/Chip';
 import { useSelector } from 'react-redux';
 import { selectCount } from '../../../features/scoreSlice';
-import { selectedRules } from '../../../features/settingsSlice';
+import { selectedRules, selectedThemeMode } from '../../../features/settingsSlice';
 
 const Score = () => {
     const count = useSelector(selectCount);
     const currentRule = useSelector(selectedRules);
+    const isDarkMode = useSelector(selectedThemeMode);
+
     return (
         <Chip
             label={`Score: ${currentRule === 'Klondike' ? '-' : count}`}
-            variant="filled"
+            variant={isDarkMode ? 'outlined' : 'filled'}
             color="success"
             disabled={currentRule === 'Klondike'}
+            style={isDarkMode ? { backgroundColor: 'white' } : {}}
         />
     );
 };
