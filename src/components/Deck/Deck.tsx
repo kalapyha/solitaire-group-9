@@ -106,6 +106,10 @@ const Deck = ({
             </Box>
         );
     }
+    const cardsArrayFaceDown = cardsArray.filter((card) => Boolean(card.isFaceDown));
+    const cardsRevealed = cardsArray.filter((card) => !Boolean(card.isFaceDown));
+
+    console.log(cardsArrayFaceDown, cardsRevealed);
     return (
         <Box
             style={{
@@ -127,7 +131,7 @@ const Deck = ({
             }}
         >
             {/* TODO split this array and render separately face down and normal cards */}
-            {cardsArray.map(
+            {cardsArrayFaceDown.map(
                 ({ value, cardSuit, isFaceDown, image, canBePutOn, canBePutOnHome, stackId, id }: CardType, i) => (
                     <Card
                         value={value}
@@ -135,8 +139,8 @@ const Deck = ({
                         isFaceDown={isFaceDown}
                         image={image}
                         key={`${value}${cardSuit}`}
-                        // isDraggable={cardsArray.length - 1 === i ? true : false}
-                        isDraggable={!isFaceDown}
+                        isDraggable={cardsArray.length - 1 === i ? true : false}
+                        // isDraggable={!isFaceDown}
                         id={id}
                         stackId={stackId}
                         canBePutOn={canBePutOn}
@@ -147,6 +151,32 @@ const Deck = ({
                     />
                 ),
             )}
+            <div
+                id="revealed-cards-wrapper"
+                style={{ position: 'absolute', top: `${cardsArrayFaceDown.length + 18.5}em` }}
+            >
+                {cardsRevealed.map(
+                    ({ value, cardSuit, isFaceDown, image, canBePutOn, canBePutOnHome, stackId, id }: CardType, i) => (
+                        <Card
+                            value={value}
+                            cardSuit={cardSuit}
+                            isFaceDown={isFaceDown}
+                            image={image}
+                            key={`${value}${cardSuit}`}
+                            // isDraggable={cardsArray.length - 1 === i ? true : false}
+                            // isDraggable={!isFaceDown}
+                            isDraggable={true}
+                            id={id}
+                            stackId={stackId}
+                            canBePutOn={canBePutOn}
+                            canBePutOnHome={canBePutOnHome}
+                            index={i}
+                            smallShift={smallShift}
+                            noShift={noShift}
+                        />
+                    ),
+                )}
+            </div>
         </Box>
     );
 };

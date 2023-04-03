@@ -45,7 +45,7 @@ const Board = (): JSX.Element => {
                 padding: 0,
             }}
         >
-            <Grid container spacing={2} p={3} height="100vh">
+            <Grid container p={3} height="100vh">
                 <Grid
                     item
                     xs={2}
@@ -98,7 +98,8 @@ const Board = (): JSX.Element => {
                     alignItems="flex-start"
                     justifyContent="flex-end"
                     alignContent="center"
-                    gap={4.5}
+                    gap={6}
+                    minHeight={'50vh'}
                 >
                     <Deck cardsArray={cards1.cards} allowEmpty tableauId={1} />
                     <Deck cardsArray={cards2.cards} allowEmpty tableauId={2} />

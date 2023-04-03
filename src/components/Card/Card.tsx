@@ -103,7 +103,8 @@ const Card = (props: CardProps): JSX.Element => {
                 dispatch(scoreDecrement());
             }}
             style={{
-                transform: !props.noShift ? `translateY(${Number(props.index)}em)` : '',
+                transform: !props.noShift ? `translateY(${Number(props.index) * 4}em)` : '',
+                // transform: `translateY(${Number(props.index) * 4}em)`,
             }}
         >
             <div>{props.image}</div>
