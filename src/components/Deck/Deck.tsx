@@ -110,7 +110,7 @@ const Deck = ({
     const cardsArrayFaceDown = cardsArray.filter((card) => Boolean(card.isFaceDown));
     const cardsRevealed = cardsArray.filter((card) => !Boolean(card.isFaceDown));
 
-    console.log(cardsArrayFaceDown, cardsRevealed);
+    // console.log(cardsArrayFaceDown, cardsRevealed);
     return (
         <Box
             style={{

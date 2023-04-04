@@ -151,7 +151,6 @@ const tableauSlice = createSlice({
             if (state.history.length > 0) {
                 const prevMoveState = state.history[0];
                 state.history = [];
-                console.log('here!');
                 for (const key in prevMoveState) {
                     state[key] = prevMoveState[key];
                 }
@@ -187,15 +186,7 @@ const tableauSlice = createSlice({
         },
         makeMove: (state) => {
             if (state.moveFrom?.cardId && state.moveTo?.cardId) {
-                if (state.moveFrom.canBePutOn.includes(state.moveTo.cardId)) {
-                    // save to history
-                    // state.history = [
-                    //     {
-                    //         [`tableau${state.moveFrom.stackId}`]: state[`tableau${state.moveFrom.stackId}`],
-                    //         [`tableau${state.moveTo.stackId}`]: state[`tableau${state.moveTo.stackId}`],
-                    //     },
-                    // ];
-
+                if (state.moveFrom.canBePutOn.includes(state.moveTo.cardId) && !state.moveFrom?.isStack) {
                     // make move
                     const cardToMove = state[`tableau${state.moveFrom.stackId}`].cards.slice(-1); // one last card
                     state[`tableau${state.moveFrom.stackId}`].cards = revealLastCard(
@@ -214,6 +205,28 @@ const tableauSlice = createSlice({
                         (card) => ({ ...card, stackId: state.moveTo.stackId }),
                     );
                     console.log('MOVE happened ');
+
+                    state.moveTo = {};
+                    state.moveFrom = {};
+                } else if (state.moveFrom.canBePutOn.includes(state.moveTo.cardId) && state.moveFrom.isStack) {
+                    // make stack move
+                    const index = state[`tableau${state.moveFrom.stackId}`].cards.findIndex(
+                        (card) => card.id === state.moveFrom.cardId,
+                    );
+                    const cardsToMove = state[`tableau${state.moveFrom.stackId}`].cards.slice(index);
+                    state[`tableau${state.moveFrom.stackId}`].cards = revealLastCard(
+                        state[`tableau${state.moveFrom.stackId}`].cards.slice(0, index),
+                    );
+
+                    state[`tableau${state.moveTo.stackId}`].cards = [
+                        ...state[`tableau${state.moveTo.stackId}`].cards,
+                        ...cardsToMove,
+                    ];
+
+                    state[`tableau${state.moveTo.stackId}`].cards = state[`tableau${state.moveTo.stackId}`].cards.map(
+                        (card) => ({ ...card, stackId: state.moveTo.stackId }),
+                    );
+                    console.log('MOVE STACK happened ');
 
                     state.moveTo = {};
                     state.moveFrom = {};
