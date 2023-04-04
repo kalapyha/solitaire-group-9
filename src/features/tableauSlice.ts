@@ -238,8 +238,8 @@ const tableauSlice = createSlice({
                 }
             }
 
-            // Move King on empty field
-            if (state.moveFrom?.cardId && state.moveTo?.moveOnEmptyTableau) {
+            // Move KING on empty field
+            if (state.moveFrom?.cardId && state.moveTo?.moveOnEmptyTableau && !state.moveFrom?.isStack) {
                 if (state.moveFrom.cardId.includes('13')) {
                     // make move
                     const cardToMove = state[`tableau${state.moveFrom.stackId}`].cards.slice(-1); // one last card
@@ -251,6 +251,29 @@ const tableauSlice = createSlice({
                     );
 
                     state[`tableau${state.moveTo.stackId}`].cards = [...cardToMove];
+                    state[`tableau${state.moveTo.stackId}`].cards = state[`tableau${state.moveTo.stackId}`].cards.map(
+                        (card) => ({ ...card, stackId: state.moveTo.stackId }),
+                    );
+                    console.log('MOVE happened ');
+                } else {
+                    console.log('MOVE NOT happened ');
+                    // reset moveTo and moveFrom
+                    state.moveTo = {};
+                    state.moveFrom = {};
+                }
+            } else if (state.moveFrom?.cardId && state.moveTo?.moveOnEmptyTableau && state.moveFrom?.isStack) {
+                if (state.moveFrom.cardId.includes('13')) {
+                    // make STACK move
+                    // make stack move
+                    const index = state[`tableau${state.moveFrom.stackId}`].cards.findIndex(
+                        (card) => card.id === state.moveFrom.cardId,
+                    );
+                    const cardsToMove = state[`tableau${state.moveFrom.stackId}`].cards.slice(index);
+                    state[`tableau${state.moveFrom.stackId}`].cards = revealLastCard(
+                        state[`tableau${state.moveFrom.stackId}`].cards.slice(0, index),
+                    );
+
+                    state[`tableau${state.moveTo.stackId}`].cards = [...cardsToMove];
                     state[`tableau${state.moveTo.stackId}`].cards = state[`tableau${state.moveTo.stackId}`].cards.map(
                         (card) => ({ ...card, stackId: state.moveTo.stackId }),
                     );
