@@ -12,11 +12,10 @@ import './Card.scss';
 import { scoreDecrement } from '../../features/scoreSlice';
 
 const StyledBox = styled(Box)(({}) => ({
-    cursor: 'grab',
+    cursor: 'pointer',
     position: 'absolute',
     bottom: 0,
     transformOrigin: 'bottom center',
-    marginRight: '20px',
 }));
 
 interface CardProps extends CardType {
@@ -66,7 +65,11 @@ const Card = (props: CardProps): JSX.Element => {
                     dispatch(moveToFlipped());
                 }
             }}
-            style={{ transform: props.smallShift ? `translateY(${props.index}px)` : `translateY(${props.index}0px)` }}
+            style={{
+                transform: props.smallShift
+                    ? `translateY(${props.index}px)`
+                    : `translateY(${(Number(props.index) * 10) / 1.6}px)`,
+            }}
         >
             {renderCardBackPattern()}
         </StyledBox>
@@ -104,6 +107,7 @@ const Card = (props: CardProps): JSX.Element => {
             }}
             style={{
                 transform: !props.noShift ? `translateY(${Number(props.index) * 4}em)` : '',
+                cursor: props.stackId >= 10 ? 'default' : 'grab',
                 // transform: `translateY(${Number(props.index) * 4}em)`,
             }}
         >

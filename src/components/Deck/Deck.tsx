@@ -3,10 +3,11 @@ import { CardType } from '../../types';
 import Card from '../Card/Card';
 import { styled, Card as MUICard, Box, IconButton } from '@mui/material';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { selectRedeals } from '../../features/scoreSlice';
-import { setMoveTo, redealCards } from '../../features/tableauSlice';
+import { setMoveTo, redealCards, setMoveFrom } from '../../features/tableauSlice';
 import { decrementRedeals } from '../../features/scoreSlice';
 import { selectedRules } from '../../features/settingsSlice';
 
@@ -151,11 +152,57 @@ const Deck = ({
                     />
                 ),
             )}
-            <div
-                id="revealed-cards-wrapper"
-                style={{ position: 'absolute', top: `${cardsArrayFaceDown.length + 18.5}em` }}
-            >
-                {cardsRevealed.map(
+            {/* D-N-D STACK HERE */}
+            {cardsRevealed[0]?.stackId <= 7 ? (
+                <div
+                    id="revealed-cards-wrapper"
+                    style={{
+                        position: 'absolute',
+                        width: '234px',
+                        height: '340px',
+                    }}
+                    draggable={true}
+                    onDragStart={() =>
+                        dispatch(
+                            setMoveFrom({
+                                stackId: cardsRevealed[0]?.stackId,
+                                cardId: cardsRevealed[0]?.id,
+                                canBePutOn: cardsRevealed[0]?.canBePutOn,
+                                canBePutOnHome: false,
+                                isStack: true,
+                            }),
+                        )
+                    }
+                    onDragOver={(e) => e.preventDefault()}
+                >
+                    <Box display={'flex'} alignItems="center" justifyContent="center">
+                        <DragIndicatorIcon />
+                    </Box>
+                    {cardsRevealed.map(
+                        (
+                            { value, cardSuit, isFaceDown, image, canBePutOn, canBePutOnHome, stackId, id }: CardType,
+                            i,
+                        ) => (
+                            <Card
+                                value={value}
+                                cardSuit={cardSuit}
+                                isFaceDown={isFaceDown}
+                                image={image}
+                                key={`${value}${cardSuit}`}
+                                isDraggable={cardsRevealed.length - 1 === i ? true : false}
+                                id={id}
+                                stackId={stackId}
+                                canBePutOn={canBePutOn}
+                                canBePutOnHome={canBePutOnHome}
+                                index={i}
+                                smallShift={smallShift}
+                                noShift={noShift}
+                            />
+                        ),
+                    )}
+                </div>
+            ) : (
+                cardsRevealed.map(
                     ({ value, cardSuit, isFaceDown, image, canBePutOn, canBePutOnHome, stackId, id }: CardType, i) => (
                         <Card
                             value={value}
@@ -175,8 +222,8 @@ const Deck = ({
                             noShift={noShift}
                         />
                     ),
-                )}
-            </div>
+                )
+            )}
         </Box>
     );
 };
