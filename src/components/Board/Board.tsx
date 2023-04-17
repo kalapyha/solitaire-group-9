@@ -43,9 +43,10 @@ const Board = (): JSX.Element => {
                     ? 'rgba(39,110,23,0.95)'
                     : 'radial-gradient(circle, rgba(21,107,25,1) 0%, rgba(40,122,49,1) 45%, rgba(39,110,23,1) 100%)',
                 padding: 0,
+                height: '100vh',
             }}
         >
-            <Grid container p={3} height="100vh">
+            <Grid container p={3} style={{ zoom: '60%', height: '120vh' }}>
                 <Grid
                     item
                     xs={2}

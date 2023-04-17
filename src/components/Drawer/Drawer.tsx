@@ -94,7 +94,7 @@ export default function MiniDrawer() {
     };
 
     return (
-        <Box sx={{ display: 'flex', backgroundColor: 'purple', zoom: '100%' }}>
+        <Box sx={{ display: 'flex', backgroundColor: 'purple' }}>
             <CssBaseline />
             <AppBar
                 id="app-bar"
