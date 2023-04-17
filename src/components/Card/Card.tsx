@@ -84,6 +84,7 @@ const Card = (props: CardProps): JSX.Element => {
                         stackId: props.stackId,
                         cardId: props.id,
                         canBePutOnHome: props.canBePutOnHome,
+                        canBePutOn: props.canBePutOn,
                     }),
                 )
             }

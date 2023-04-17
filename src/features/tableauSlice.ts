@@ -264,7 +264,6 @@ const tableauSlice = createSlice({
             } else if (state.moveFrom?.cardId && state.moveTo?.moveOnEmptyTableau && state.moveFrom?.isStack) {
                 if (state.moveFrom.cardId.includes('13')) {
                     // make STACK move
-                    // make stack move
                     const index = state[`tableau${state.moveFrom.stackId}`].cards.findIndex(
                         (card) => card.id === state.moveFrom.cardId,
                     );
@@ -432,6 +431,7 @@ const tableauSlice = createSlice({
             state.activeCard = {};
             state.moveFrom = {};
             state.moveTo = {};
+            state.history = [];
         },
     },
 });
