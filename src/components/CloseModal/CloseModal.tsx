@@ -14,8 +14,19 @@ type CloseModalProps = {
     title?: string;
     message?: string;
     actionText?: string;
+    hideConfirm?: boolean;
+    actionButtonText?: string;
 };
-const CloseModal = ({ open, handleClose, handleConfirm, message, actionText, title }: CloseModalProps) => {
+const CloseModal = ({
+    open,
+    handleClose,
+    handleConfirm,
+    message,
+    actionText,
+    title,
+    hideConfirm = false,
+    actionButtonText,
+}: CloseModalProps) => {
     return (
         <Dialog
             open={open}
@@ -31,11 +42,13 @@ const CloseModal = ({ open, handleClose, handleConfirm, message, actionText, tit
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleConfirm} variant="contained" color="error">
-                    {actionText || 'Logout'}
-                </Button>
+                {!hideConfirm && (
+                    <Button onClick={handleConfirm} variant="contained" color="error">
+                        {actionText || 'Logout'}
+                    </Button>
+                )}
                 <Button onClick={handleClose} variant="contained" color="success" autoFocus>
-                    Cancel
+                    {actionButtonText || 'Cancel'}
                 </Button>
             </DialogActions>
         </Dialog>

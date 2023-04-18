@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { Suspense, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import HomeCard from './components/HomeCard';
 import Box from '@mui/material/Box';
 import Deck from '../Deck/Deck';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { resetCards } from '../../features/tableauSlice';
+import { scoreReset } from '../../features/scoreSlice';
 import {
     deckStack,
     deckStackFlipped,
@@ -21,7 +23,11 @@ import {
 } from '../../features/tableauSlice';
 import { selectedThemeMode } from '../../features/settingsSlice';
 
+const CloseModal = React.lazy(() => import('../CloseModal/CloseModal'));
+
 const Board = (): JSX.Element => {
+    const dispatch = useDispatch();
+
     const { cards } = useSelector(deckStack);
     const flippedCards = useSelector(deckStackFlipped).cards;
     const isDarkMode = useSelector(selectedThemeMode);
@@ -36,6 +42,9 @@ const Board = (): JSX.Element => {
     const home2 = useSelector(homeClubs);
     const home3 = useSelector(homeDiamonds);
     const home4 = useSelector(homeSpades);
+    const isGameWin = home1.cards.length + home2.cards.length + home3.cards.length + home4.cards.length === 52;
+
+    const [openModal, setOpenModal] = useState(isGameWin);
     return (
         <Box
             style={{
@@ -111,6 +120,27 @@ const Board = (): JSX.Element => {
                     <Deck cardsArray={cards7.cards} allowEmpty />
                 </Grid>
             </Grid>
+            <Suspense fallback={<div>Loading...</div>}>
+                <CloseModal
+                    title={'Congratulations'}
+                    actionText="Confirm"
+                    message={'You WIN!'}
+                    open={openModal}
+                    handleClose={() => {
+                        setOpenModal(false);
+                        dispatch(resetCards());
+                        dispatch(scoreReset());
+                    }}
+                    handleConfirm={() => {
+                        dispatch(resetCards());
+                        dispatch(scoreReset());
+
+                        setOpenModal(false);
+                    }}
+                    hideConfirm
+                    actionButtonText="Ok"
+                />
+            </Suspense>
         </Box>
     );
 };

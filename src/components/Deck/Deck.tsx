@@ -110,7 +110,6 @@ const Deck = ({
     const cardsArrayFaceDown = cardsArray.filter((card) => Boolean(card.isFaceDown));
     const cardsRevealed = cardsArray.filter((card) => !Boolean(card.isFaceDown));
 
-    // console.log(cardsArrayFaceDown, cardsRevealed);
     return (
         <Box
             style={{
@@ -131,7 +130,6 @@ const Deck = ({
                 );
             }}
         >
-            {/* TODO split this array and render separately face down and normal cards */}
             {cardsArrayFaceDown.map(
                 ({ value, cardSuit, isFaceDown, image, canBePutOn, canBePutOnHome, stackId, id }: CardType, i) => (
                     <Card
@@ -210,8 +208,6 @@ const Deck = ({
                             isFaceDown={isFaceDown}
                             image={image}
                             key={`${value}${cardSuit}`}
-                            // isDraggable={cardsArray.length - 1 === i ? true : false}
-                            // isDraggable={!isFaceDown}
                             isDraggable={true}
                             id={id}
                             stackId={stackId}
