@@ -17,6 +17,39 @@ const revealLastCard = (deck) => {
     return [...deck.slice(0, deck.length - 1), lastCard];
 };
 
+const moveBetweenTableaus = (state, args, cardToMove) => {
+    const tableausArray = Array.from({ length: 7 }, (_, i) => i + 1);
+
+    for (let i = 0; i < tableausArray.length; i++) {
+        console.log(`Item ${i + 1}: ${tableausArray[i]}`);
+        if (
+            cardToMove.canBePutOn.includes(
+                state[`tableau${i + 1}`].cards[state[`tableau${i + 1}`].cards.length - 1]?.id,
+            )
+        ) {
+            const cardToDo = state[`tableau${args.payload.stackId}`].cards.slice(-1); // one last card
+            state[`tableau${args.payload.stackId}`].cards = revealLastCard(
+                state[`tableau${args.payload.stackId}`].cards.slice(
+                    0,
+                    state[`tableau${args.payload.stackId}`].cards.length - 1,
+                ),
+            );
+
+            state[`tableau${i + 1}`].cards = [...state[`tableau${i + 1}`].cards, ...cardToDo];
+
+            state[`tableau${i + 1}`].cards = state[`tableau${i + 1}`].cards.map((card) => ({
+                ...card,
+                stackId: i + 1,
+            }));
+            console.log('MOVE happened ');
+
+            state.moveTo = {};
+            state.moveFrom = {};
+            return;
+        }
+    }
+};
+
 const initialState = {
     tableau1: {
         id: 1,
@@ -328,6 +361,9 @@ const tableauSlice = createSlice({
                                 ),
                             );
                             state.homeHearts.cards = [{ ...cardToMove, stackId: state.homeHearts.id }];
+                            break;
+                        } else {
+                            moveBetweenTableaus(state, args, cardToMove);
                         }
                         break;
                     case '♦':
@@ -342,6 +378,9 @@ const tableauSlice = createSlice({
                                 ),
                             );
                             state.homeDiamonds.cards = [{ ...cardToMove, stackId: state.homeDiamonds.id }];
+                            break;
+                        } else {
+                            moveBetweenTableaus(state, args, cardToMove);
                         }
                         break;
                     case '♣':
@@ -355,6 +394,9 @@ const tableauSlice = createSlice({
                                 ),
                             );
                             state.homeClubs.cards = [{ ...cardToMove, stackId: state.homeClubs.id }];
+                            break;
+                        } else {
+                            moveBetweenTableaus(state, args, cardToMove);
                         }
                         break;
                     case '♠':
@@ -369,12 +411,14 @@ const tableauSlice = createSlice({
                                 ),
                             );
                             state.homeSpades.cards = [{ ...cardToMove, stackId: state.homeSpades.id }];
+                            break;
+                        } else {
+                            moveBetweenTableaus(state, args, cardToMove);
                         }
                         break;
-
                     default:
                         break;
-                } // Logic for other cards
+                }
             }
         },
         resetCards: (state) => {
